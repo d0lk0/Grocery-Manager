@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -32,17 +33,12 @@ public class ScanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_scan, container, false );
-        text = view.findViewById(R.id.text);
+        //text = view.findViewById(R.id.text);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        scanCode();
-    }
-
-    private void scanCode()
-    {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up / down for flashlight");
         options.setBeepEnabled(false);
@@ -54,8 +50,8 @@ public class ScanFragment extends Fragment {
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result->
     {
         if(result.getContents() != null) {
-            if(Pattern.matches("[A-Z]-\b[0-9A-F]{32}\b", result.getContents())){
-                try {
+            if(Pattern.matches("[A-Z]-\b[\\dA-F]{32}\b", result.getContents())){
+                try { // TODO: Rework
                     JSONObject json =  FetchData.getUrlContents(result.getContents());
                     assert json != null;
                     StringBuilder buildText = new StringBuilder("Name: " + json.getJSONObject("receipt").getJSONObject("organization").getString("name") + "\nTotal price: " + json.getJSONObject("receipt").getString("totalPrice") + "€ \nItems:");
@@ -68,7 +64,7 @@ public class ScanFragment extends Fragment {
                     Log.e("Error: ", "Error scanning");
                     throw new RuntimeException(e);}
             } else {
-
+                Toast.makeText(getContext(), "Error wrong id of receipt!", Toast.LENGTH_SHORT).show();
             }
         }
     });
