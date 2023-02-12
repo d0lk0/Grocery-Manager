@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mOverview"
+        android:icon="@drawable/ic_overview"
+        android:title="Overview" />
+
+    <item
+        android:id="@+id/mScan"
+        android:icon="@drawable/ic_scanner"
+        android:title="Scan" />
+
+    <item android:id="@+id/placeholder"
+        android:title="" />
+
+    <item
+        android:id="@+id/mShoppingcart"
+        android:icon="@drawable/ic_shopping_cart"
+        android:title="List" />
+
+    <item android:id="@+id/mSettings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings" />
+</menu>

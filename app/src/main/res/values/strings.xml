@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Grocery Manager</string>
+    <string name="recent_shoppings">Recent Shopping\'s</string>
+    <string name="shopping_cart">Shopping cart</string>
+</resources>
