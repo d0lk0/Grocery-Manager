@@ -1,5 +1,8 @@
 package com.dolko.grocerymanager.database;
 
+
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,10 +12,14 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class FetchData {
 
-    public static JSONObject getUrlContents(String receiptId) throws IOException, JSONException {
+    public static JSONObject data;
+    public static  String[] detail;
+    public static ArrayList<String> items = new ArrayList<>();
+    public static void getUrlContent(String receiptId) throws IOException, JSONException {
         try {
             URL url = new URL("https://ekasa.financnasprava.sk/mdu/api/v1/opd/receipt/find");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -38,23 +45,39 @@ public class FetchData {
                 String response = sb.toString();
 
                 conn.disconnect();
-
-                return new JSONObject(response);
+                data = new JSONObject(response);
+                getData(data);
             }
         } catch (Exception ignored) {}
-
-        return null;
     }
 
-    private String[] parseJson(){
+    public static void getData(JSONObject receiptContent) {
+        detail = new String[3];
 
+        if (receiptContent != null) {
+            try {
+                String name = receiptContent.getJSONObject("receipt").getJSONObject("organization").getString("name");
+                String date = receiptContent.getJSONObject("receipt").getString("createDate");
+                String price = receiptContent.getJSONObject("receipt").getString("totalPrice") + "€";
 
+                detail[0] = name;
+                detail[1] = date;
+                detail[2] = price;
 
-
-
-
-        return new String[0];
+                for (int i = 0; receiptContent.getJSONObject("receipt").getJSONArray("items").length() > i; ++i) {
+                    items.add(i, receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("name") + "\n" +
+                            receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("quantity") + "ks * " +
+                            (Float.parseFloat(receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("price")) /
+                                    Integer.parseInt(receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("quantity"))) + "\n" +
+                            receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("price"));
+                }
+            } catch (JSONException e) {
+                Log.e("Error: ", "Error scanning");
+                throw new RuntimeException(e);
+            }
+        }
     }
+
 
 }
 

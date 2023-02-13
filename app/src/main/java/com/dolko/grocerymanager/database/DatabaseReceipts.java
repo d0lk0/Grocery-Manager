@@ -34,16 +34,12 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
-    public boolean addReceipt(String name, String date) {
+    public boolean addReceipt(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL1, name);
         Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
-
-        contentValues.put(COL2, date);
-        Log.d(TAG, "addData: Adding " + date + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
@@ -55,17 +51,16 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-
-    public Cursor checkExistence(String product_name, String expiration_date){
+    public Cursor checkExistence(String name, String date){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * " +
                 " FROM " + TABLE_NAME +
-                " WHERE "+ COL1 + " = '" + product_name + "' AND " + COL2 + " = '" + expiration_date + "'";;
+                " WHERE "+ COL1 + " = '" + name + "' AND " + COL2 + " = '" + date + "'";
 
         return db.rawQuery(query, null);
     }
 
-    public Cursor getItemByID(int name){
+    public Cursor getItemByID(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * " + " FROM " + TABLE_NAME +
                 " WHERE " + COL1 + " = '" + name + "'";
@@ -83,16 +78,16 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         Log.d(TAG, "updateName: query: " + query);
         Log.d(TAG, "updateName: Setting name to " + newName);
         db.execSQL(query);
-    }
-
-    public void deleteReceipt(int id, String name, String expDate){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE_NAME + " WHERE "
-                + COL2 + " = '" + id + "'" + " AND " + COL3 + " = '" + name + "'" + " AND " + COL4 + " = '" + expDate + "'";
-        Log.d(TAG, "deleteName: query: " + query);
-        Log.d(TAG, "deleteName: Deleting " + name + " with id: " + id + "and expirationDate of: " + expDate + " from database.");
-        db.execSQL(query);
     }*/
+
+    public void deleteReceipt(String receiptId, String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME +
+                       " WHERE " + COL1 + " = '" + receiptId + "'" + " AND " + COL2 + " = '" + date + "'";
+        Log.d(TAG, "deleteReceipt: query: " + query);
+        Log.d(TAG, "deleteReceipt: Deleting " + receiptId + " with date: " + date + " from database.");
+        db.execSQL(query);
+    }
 
     public void deleteContent(){
         SQLiteDatabase db = this.getWritableDatabase();

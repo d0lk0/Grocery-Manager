@@ -39,7 +39,7 @@
                 android:id="@+id/count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
@@ -56,7 +56,7 @@
                 android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
@@ -73,7 +73,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
@@ -122,10 +122,10 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/sca1"
+                android:id="@+id/receipt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
@@ -139,10 +139,10 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/sca_h1" />
 
             <TextView
-                android:id="@+id/sca2"
+                android:id="@+id/receipt_creation_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
@@ -153,13 +153,13 @@
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca1" />
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
 
             <TextView
-                android:id="@+id/sca3"
+                android:id="@+id/receipt_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
@@ -170,7 +170,7 @@
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca2" />
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_creation_date" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

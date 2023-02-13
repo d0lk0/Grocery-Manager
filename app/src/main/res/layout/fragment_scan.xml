@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,19 +35,19 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/sca1H"
+                android:id="@+id/receipt__nameH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:paddingStart="10dp"
                 android:text="Názov"
+                android:paddingStart="5dp"
                 android:textColor="#727272"
                 android:textSize="16sp"
-                card_view:layout_constraintBottom_toTopOf="@+id/sca1"
-                card_view:layout_constraintStart_toStartOf="@+id/sca1" />
+                card_view:layout_constraintBottom_toTopOf="@+id/receipt_name"
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_name" />
 
             <TextView
-                android:id="@+id/sca1"
+                android:id="@+id/receipt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -56,7 +55,8 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
-                android:gravity="left"
+                android:gravity="start"
+                android:padding="10dp"
                 android:paddingStart="10dp"
                 android:text="TextView"
                 android:textColor="@color/white"
@@ -66,56 +66,58 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/sca_h1" />
 
             <TextView
-                android:id="@+id/sca2H"
+                android:id="@+id/receipt_creation_dateH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="start"
-                android:paddingStart="10dp"
+                android:paddingStart="5dp"
                 android:text="Dátum a čas vyhotovenia"
                 android:textColor="#727272"
                 android:textSize="16sp"
-                card_view:layout_constraintStart_toStartOf="@+id/sca1"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca1" />
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_name"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
 
             <TextView
-                android:id="@+id/sca2"
+                android:id="@+id/receipt_creation_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 android:gravity="start"
                 android:padding="10dp"
+                android:paddingStart="10dp"
                 android:text="TextView"
                 android:textColor="@color/white"
-                card_view:layout_constraintStart_toStartOf="@+id/sca2H"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca2H" />
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_creation_dateH"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_creation_dateH" />
 
             <TextView
-                android:id="@+id/sca3H"
+                android:id="@+id/receipt_priceH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="start"
-                android:paddingStart="10dp"
+                android:paddingStart="5dp"
                 android:text="Celková suma"
                 android:textColor="#727272"
                 android:textSize="16sp"
-                card_view:layout_constraintEnd_toEndOf="@+id/sca1"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca1" />
+                card_view:layout_constraintEnd_toEndOf="@+id/receipt_name"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
 
             <TextView
-                android:id="@+id/sca3"
+                android:id="@+id/receipt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 android:gravity="start"
                 android:padding="10dp"
+                android:paddingStart="10dp"
                 android:text="TextView"
                 android:textColor="@color/white"
-                card_view:layout_constraintEnd_toEndOf="@+id/sca3H"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca3H" />
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_priceH"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_priceH" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
