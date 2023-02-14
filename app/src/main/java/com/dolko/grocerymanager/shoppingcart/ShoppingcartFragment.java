@@ -22,7 +22,7 @@ public class ShoppingcartFragment extends Fragment {
 
     DatabaseHelper databaseHelper;
     private Adapter adapter;
-    static List<String> items = new ArrayList<>();
+    public static List<String> items = new ArrayList<>();
 
     @Nullable
     @Override

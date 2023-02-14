@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseHelper;
+import com.dolko.grocerymanager.shoppingcart.ShoppingcartFragment;
 
 public class SettingsFragment extends Fragment {
 
@@ -32,6 +33,7 @@ public class SettingsFragment extends Fragment {
 
         btn_delete.setOnClickListener(e -> {
             databaseHelper.deleteDBContent();
+            ShoppingcartFragment.items.clear();
         });
 
         return view;

@@ -71,6 +71,7 @@ public class ScanFragment extends Fragment {
                     name.setText(FetchData.detail[0]);
                     date.setText(FetchData.detail[1]);
                     price.setText(FetchData.detail[2]);
+                    adapter.setData(FetchData.items);
                 }
             } catch (IOException | JSONException e) {
                 Log.e("Error: ", "Error scanning");

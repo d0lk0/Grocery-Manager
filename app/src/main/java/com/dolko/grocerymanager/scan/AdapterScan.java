@@ -9,15 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
-import com.dolko.grocerymanager.ReceiptDetail;
-import com.dolko.grocerymanager.database.FetchData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterScan extends RecyclerView.Adapter<ItemViewHolderScan> {
 
-    private List<ReceiptDetail> items = new ArrayList<>();
+    private List<String> items = new ArrayList<>();
 
     @NonNull
     @Override
@@ -29,18 +27,17 @@ public class AdapterScan extends RecyclerView.Adapter<ItemViewHolderScan> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolderScan holder, int position) {
-        Log.e("detail", FetchData.items.get(position).getDetail());
-        holder.item.setText(FetchData.items.get(position).getDetail());
-        holder.item.setText("text");
+        Log.e("detail", items.get(position));
+        holder.item.setText(items.get(position));
     };
 
     @Override
     public int getItemCount() {
-        Log.e("size f", String.valueOf(FetchData.items.size()));
-        return FetchData.items.size();
+        Log.e("size f", String.valueOf(items.size()));
+        return items.size();
     }
 
-    public void setData(List<ReceiptDetail> items) {
+    public void setData(List<String> items) {
         this.items = items;
         notifyDataSetChanged();
     }
