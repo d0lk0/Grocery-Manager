@@ -124,7 +124,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_receipts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/receiptDetail" />

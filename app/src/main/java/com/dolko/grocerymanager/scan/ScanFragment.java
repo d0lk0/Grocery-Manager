@@ -29,28 +29,28 @@ public class ScanFragment extends Fragment {
 
     DatabaseReceipts databaseReceipts;
     TextView name, date, price;
-
-    RecyclerView recyclerView;
-    Adapter adapter;
+    AdapterScan adapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
         View view = inflater.inflate(R.layout.fragment_scan, container, false );
         databaseReceipts = new DatabaseReceipts(getContext());
+
+        name = view.findViewById(R.id.receipt_name);
+        date = view.findViewById(R.id.receipt_creation_date);
+        price = view.findViewById(R.id.receipt_price);
+
+        adapter = new AdapterScan();
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_receipts);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        name = view.findViewById(R.id.receipt_name);
-        date = view.findViewById(R.id.receipt_creation_date);
-        price = view.findViewById(R.id.receipt_price);
-
-        adapter = new Adapter();
-
-        recyclerView = view.findViewById(R.id.recycler_view_receipts);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         ScanOptions options = new ScanOptions();
         options.setPrompt("Volume up / down for flashlight");
         options.setBeepEnabled(false);
@@ -71,8 +71,6 @@ public class ScanFragment extends Fragment {
                     name.setText(FetchData.detail[0]);
                     date.setText(FetchData.detail[1]);
                     price.setText(FetchData.detail[2]);
-
-                    recyclerView.setAdapter(adapter);
                 }
             } catch (IOException | JSONException e) {
                 Log.e("Error: ", "Error scanning");

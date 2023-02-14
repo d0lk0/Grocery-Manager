@@ -3,6 +3,10 @@ package com.dolko.grocerymanager.database;
 
 import android.util.Log;
 
+import com.dolko.grocerymanager.ReceiptDetail;
+import com.dolko.grocerymanager.scan.AdapterScan;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,15 +14,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FetchData {
 
     public static JSONObject data;
     public static  String[] detail;
-    public static ArrayList<String> items = new ArrayList<>();
+    public static List<ReceiptDetail> items = new ArrayList<>();
+
+    static AdapterScan adapterScan;
+
     public static void getUrlContent(String receiptId) throws IOException, JSONException {
         try {
             URL url = new URL("https://ekasa.financnasprava.sk/mdu/api/v1/opd/receipt/find");
@@ -64,13 +74,23 @@ public class FetchData {
                 detail[1] = date;
                 detail[2] = price;
 
-                for (int i = 0; receiptContent.getJSONObject("receipt").getJSONArray("items").length() > i; ++i) {
-                    items.add(i, receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("name") + "\n" +
-                            receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("quantity") + "ks * " +
-                            (Float.parseFloat(receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("price")) /
-                                    Integer.parseInt(receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("quantity"))) + "\n" +
-                            receiptContent.getJSONObject("receipt").getJSONArray("items").getJSONObject(i).getString("price"));
+                JSONArray itemsArray = receiptContent.getJSONObject("receipt").getJSONArray("items");
+                int itemsArrayLength = itemsArray.length();
+                for (int i = 0; i < itemsArrayLength; i++) {
+                    JSONObject itemObject = itemsArray.getJSONObject(i);
+                    String item_name = itemObject.getString("name");
+                    int item_quantity = itemObject.getInt("quantity");
+                    double item_price = itemObject.getDouble("price");
+                    float pricePerItem = BigDecimal.valueOf(item_price)
+                            .divide(BigDecimal.valueOf(item_quantity), 2, RoundingMode.HALF_UP)
+                            .floatValue();
+                    String itemString = item_name + "\n" +
+                            item_quantity + "ks * " + pricePerItem + " - " + item_price;
+                    items.add(i, new ReceiptDetail(itemString));
+                    Log.e("item",i + " " + itemString);
                 }
+
+                adapterScan.setData(items);
             } catch (JSONException e) {
                 Log.e("Error: ", "Error scanning");
                 throw new RuntimeException(e);

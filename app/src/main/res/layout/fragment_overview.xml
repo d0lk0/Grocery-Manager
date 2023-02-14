@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/recentShoppingPlaces"
+        android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
@@ -101,7 +101,7 @@
         card_view:cardUseCompatPadding="true"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/recentShoppingPlaces">
+        card_view:layout_constraintTop_toBottomOf="@+id/item_holder">
 
         <!--YOUR CONTENT-->
         <androidx.constraintlayout.widget.ConstraintLayout
