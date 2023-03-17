@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/item_holder"
+        android:id="@+id/recent_items"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/rsp_h1"
+                android:id="@+id/recent_shopping_h"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
@@ -36,7 +36,7 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/count"
+                android:id="@+id/recent_shopping_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -44,16 +44,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:text="TextView"
+                android:text="Kaufland"
                 android:textColor="@color/white"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/rsp_h1" />
+                card_view:layout_constraintTop_toBottomOf="@+id/recent_shopping_h" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/recent_shopping_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -61,37 +61,20 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:text="TextView"
+                android:text="COOP Jednota"
                 android:textColor="@color/white"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/count" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:paddingStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="TextView"
-                android:textColor="@color/white"
-                android:background="@drawable/rectangle"
-                android:backgroundTint="#656565"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/price" />
+                card_view:layout_constraintTop_toBottomOf="@+id/recent_shopping_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/receiptDetail"
+        android:id="@+id/shopping_cart_recent_items"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
@@ -101,7 +84,7 @@
         card_view:cardUseCompatPadding="true"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toBottomOf="@+id/item_holder">
+        card_view:layout_constraintTop_toBottomOf="@+id/recent_items">
 
         <!--YOUR CONTENT-->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,7 +92,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/sca_h1"
+                android:id="@+id/shopping_cart_h"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat"
@@ -122,7 +105,7 @@
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/receipt_name"
+                android:id="@+id/shopping_cart_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -130,16 +113,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:text="TextView"
+                android:text="Salads"
                 android:textColor="@color/white"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/sca_h1" />
+                card_view:layout_constraintTop_toBottomOf="@+id/shopping_cart_h" />
 
             <TextView
-                android:id="@+id/receipt_creation_date"
+                android:id="@+id/shopping_cart_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -147,16 +130,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:text="TextView"
+                android:text="Seafood"
                 android:textColor="@color/white"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
+                card_view:layout_constraintTop_toBottomOf="@+id/shopping_cart_1" />
 
             <TextView
-                android:id="@+id/receipt_price"
+                android:id="@+id/shopping_cart_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -164,13 +147,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:text="TextView"
+                android:text="Stews"
                 android:textColor="@color/white"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/receipt_creation_date" />
+                card_view:layout_constraintTop_toBottomOf="@+id/shopping_cart_2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

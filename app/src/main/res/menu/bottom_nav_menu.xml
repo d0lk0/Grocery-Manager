@@ -4,12 +4,12 @@
     <item
         android:id="@+id/mOverview"
         android:icon="@drawable/ic_overview"
-        android:title="Overview" />
+        android:title="Prehľad" />
 
     <item
-        android:id="@+id/mScan"
-        android:icon="@drawable/ic_scanner"
-        android:title="Scan" />
+        android:id="@+id/mReceipts"
+        android:icon="@drawable/ic_delete"
+        android:title="Bločky" />
 
     <item android:id="@+id/placeholder"
         android:title="" />
@@ -17,9 +17,9 @@
     <item
         android:id="@+id/mShoppingcart"
         android:icon="@drawable/ic_shopping_cart"
-        android:title="List" />
+        android:title="Košík" />
 
     <item android:id="@+id/mSettings"
-        android:title="Settings"
+        android:title="Nastavenia"
         android:icon="@drawable/ic_settings" />
 </menu>

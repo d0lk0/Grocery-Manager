@@ -3,8 +3,6 @@ package com.dolko.grocerymanager.database;
 
 import android.util.Log;
 
-import com.dolko.grocerymanager.scan.AdapterScan;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,8 +23,6 @@ public class FetchData  {
     public static JSONObject data;
     public static  String[] detail;
     public static List<String> items = new ArrayList<>();
-
-    static AdapterScan adapterScan;
 
     public static void getUrlContent(String receiptId) throws IOException, JSONException {
         try {
@@ -61,21 +57,18 @@ public class FetchData  {
     }
 
     public static void getData(JSONObject receiptContent) {
-        detail = new String[3];
+        detail = new String[4];
 
         if (receiptContent != null) {
             try {
-                String name = receiptContent.getJSONObject("receipt").getJSONObject("organization").getString("name");
-                String date = receiptContent.getJSONObject("receipt").getString("createDate");
-                String price = receiptContent.getJSONObject("receipt").getString("totalPrice") + "€";
-
-                detail[0] = name;
-                detail[1] = date;
-                detail[2] = price;
+                detail[0] = receiptContent.getJSONObject("receipt").getJSONObject("organization").getString("name");
+                detail[1] = receiptContent.getJSONObject("receipt").getString("createDate");
+                detail[2] = receiptContent.getJSONObject("receipt").getString("totalPrice") + "€";
+                detail[3] = receiptContent.getJSONObject("receipt").getString("receiptId");
 
                 JSONArray itemsArray = receiptContent.getJSONObject("receipt").getJSONArray("items");
-                int itemsArrayLength = itemsArray.length();
-                for (int i = 0; i < itemsArrayLength; i++) {
+
+                for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject itemObject = itemsArray.getJSONObject(i);
                     String item_name = itemObject.getString("name");
                     int item_quantity = itemObject.getInt("quantity");
@@ -89,6 +82,7 @@ public class FetchData  {
                     items.add(itemString);
                     Log.e("item",i + " " + itemString);
                 }
+                System.out.print(items);
                 Log.e("all ajtems", items.toString());
             } catch (JSONException e) {
                 Log.e("Error: ", "Error scanning");

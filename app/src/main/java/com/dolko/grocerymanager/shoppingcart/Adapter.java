@@ -22,11 +22,23 @@ public class Adapter extends RecyclerView.Adapter<ItemViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.name.setText(ShoppingcartFragment.items.get(position));
+        holder.count.setText(String.format("%s Ks", (Math.round(Math.random() * (7 - 1)) + 1)));
     }
 
     @Override
     public int getItemCount() {
         return ShoppingcartFragment.items.size();
     }
+
+    public void removeItem(int position) {
+        ShoppingcartFragment.items.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(String item, int position) {
+        ShoppingcartFragment.items.add(position, item);
+        notifyItemInserted(position);
+    }
+
 }
 

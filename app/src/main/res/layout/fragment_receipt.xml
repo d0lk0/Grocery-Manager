@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/receiptDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="#D9D9D9"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPaddingBottom="20dp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.5"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent">
+
+        <!--YOUR CONTENT-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/receipt_detail_h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/receipt_detail"
+                android:textColor="#656565"
+                android:textSize="20sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/receipt__nameH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingStart="5dp"
+                android:text="Názov"
+                android:textColor="#727272"
+                android:textSize="16sp"
+                card_view:layout_constraintBottom_toTopOf="@+id/receipt_name"
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_name" />
+
+            <TextView
+                android:id="@+id/receipt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#656565"
+                android:gravity="start"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:text="TextView"
+                android:textColor="@color/white"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_detail_h" />
+
+            <TextView
+                android:id="@+id/receipt_creation_dateH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="start"
+                android:paddingStart="5dp"
+                android:text="Dátum a čas vyhotovenia"
+                android:textColor="#727272"
+                android:textSize="16sp"
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_name"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
+
+            <TextView
+                android:id="@+id/receipt_creation_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#656565"
+                android:gravity="start"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:text="TextView"
+                android:textColor="@color/white"
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_creation_dateH"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_creation_dateH" />
+
+            <TextView
+                android:id="@+id/receipt_priceH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="start"
+                android:paddingStart="5dp"
+                android:text="Celková suma"
+                android:textColor="#727272"
+                android:textSize="16sp"
+                card_view:layout_constraintEnd_toEndOf="@+id/receipt_name"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
+
+            <TextView
+                android:id="@+id/receipt_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#656565"
+                android:gravity="start"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:text="TextView"
+                android:textColor="@color/white"
+                card_view:layout_constraintStart_toStartOf="@+id/receipt_priceH"
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_priceH" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="#D9D9D9"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.5"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/receiptDetail">
+
+        <!--YOUR CONTENT-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/itemH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Položky"
+                android:textColor="#656565"
+                android:textSize="20sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#D9D9D9"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/itemH" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button_save_receipt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uložiť"
+        android:backgroundTint="#00FF00"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

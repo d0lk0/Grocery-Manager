@@ -1,14 +1,13 @@
 package com.dolko.grocerymanager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dolko.grocerymanager.activity.AddActivity;
 import com.dolko.grocerymanager.database.DatabaseHelper;
 import com.dolko.grocerymanager.overview.OverviewFragment;
+import com.dolko.grocerymanager.receipts.ReceiptsFragment;
 import com.dolko.grocerymanager.scan.ScanFragment;
 import com.dolko.grocerymanager.settings.SettingsFragment;
 import com.dolko.grocerymanager.shoppingcart.ShoppingcartFragment;
@@ -36,13 +35,31 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.getMenu().getItem(2).setEnabled(false);
         bottomNavigation.setSelectedItemId(R.id.mOverview);
 
+         /*String name = "Notifikácie";
+        String description = "Dátum spotreby";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("id", name, importance);
+        channel.setDescription(description);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(channel);
+
+       NotificationCompat.Builder builder = new NotificationCompat
+                .Builder(this, "id")
+                .setSmallIcon(R.mipmap.ic_launcher_adaptive_fore)
+                .setContentTitle("Upozornenie")
+                .setContentText("Mlieko bude o 3 dni po záruke.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);*/
+
         bottomNavigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.mOverview:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new OverviewFragment()).commit();
+                    /*if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                        NotificationManagerCompat.from(this).notify(123, builder.build());
+                    }*/
                     break;
-                case R.id.mScan:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScanFragment()).commit();
+                case R.id.mReceipts:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceiptsFragment()).commit();
                     break;
                 case R.id.mShoppingcart:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShoppingcartFragment()).commit();
@@ -54,11 +71,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        FloatingActionButton add = findViewById(R.id.add);
-        add.setOnClickListener(e -> {
-            Intent myIntent = new Intent(MainActivity.this, AddActivity.class);
-            myIntent.putExtra("key", "kluč");
-            MainActivity.this.startActivity(myIntent);
+        FloatingActionButton scan = findViewById(R.id.menu_scan_button);
+        scan.setOnClickListener(e -> {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScanFragment()).commit();
+
         });
     }
 }

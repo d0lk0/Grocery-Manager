@@ -14,6 +14,7 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "stored_receipts";
     private static final String COL1 = "receipt_id";
     private static final String COL2 = "add_date";
+    private static final String COL3 = "items";
 
     public DatabaseReceipts(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -24,7 +25,8 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + TABLE_NAME + "(\n" +
                 "\t`id` integer PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t" + COL1 + " text NULL DEFAULT NULL,\n" +
-                "\t" + COL2 + " DATE NULL DEFAULT CURRENT_TIMESTAMP);";
+                "\t" + COL2 + " DATE NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "\t" + COL3 + " text NULL DEFAULT NULL);";
         db.execSQL(createTable);
     }
 
@@ -34,12 +36,15 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addReceipt(String name) {
+    public boolean addReceipt(String receiptID, String items) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(COL1, name);
-        Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
+        contentValues.put(COL1, receiptID);
+        Log.d(TAG, "addData: Adding " + receiptID + " to " + TABLE_NAME);
+
+        contentValues.put(COL3, items);
+        Log.d(TAG, "addData: Adding " + items + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
@@ -50,6 +55,7 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME;
         return db.rawQuery(query, null);
     }
+
 
     public Cursor checkExistence(String name, String date){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -63,7 +69,7 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
     public Cursor getItemByID(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * " + " FROM " + TABLE_NAME +
-                " WHERE " + COL1 + " = '" + name + "'";
+                       " WHERE " + COL1 + " = '" + name + "'";
         return db.rawQuery(query, null);
     }
 
@@ -84,7 +90,7 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME +
                        " WHERE " + COL1 + " = '" + receiptId + "'" + " AND " + COL2 + " = '" + date + "'";
-        Log.d(TAG, "deleteReceipt: query: " + query);
+
         Log.d(TAG, "deleteReceipt: Deleting " + receiptId + " with date: " + date + " from database.");
         db.execSQL(query);
     }

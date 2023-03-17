@@ -1,7 +1,6 @@
 package com.dolko.grocerymanager.activity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,16 +19,18 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
         databaseHelper = new DatabaseHelper(this);
 
-        Toast.makeText(this, getIntent().getStringExtra("key"), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, getIntent().getStringExtra("key"), Toast.LENGTH_LONG).show();
 
-        FloatingActionButton close = findViewById(R.id.close_button);
-        FloatingActionButton confirm = findViewById(R.id.confirm_button);
+        FloatingActionButton close = findViewById(R.id.add_item_close_button);
+        FloatingActionButton confirm = findViewById(R.id.add_item_confirm_button);
 
         close.setOnClickListener(e -> {
-           finish();
+
+            finish();
         });
 
         confirm.setOnClickListener(e -> {
+            //TODO: Save to DB
             finish();
         });
 
