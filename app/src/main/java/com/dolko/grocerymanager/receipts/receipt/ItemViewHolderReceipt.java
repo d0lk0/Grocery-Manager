@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
 
-public class ItemViewHolder extends RecyclerView.ViewHolder {
+public class ItemViewHolderReceipt extends RecyclerView.ViewHolder {
 
     TextView item;
-    public ItemViewHolder(View itemView) {
+    public ItemViewHolderReceipt(View itemView) {
         super(itemView);
         item = itemView.findViewById(R.id.item_content);
     }

@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.FetchData;
 
-public class AdapterReceipt extends RecyclerView.Adapter<ItemViewHolder> {
+public class AdapterReceipt extends RecyclerView.Adapter<ItemViewHolderReceipt> {
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemViewHolderReceipt onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_receipt_item, parent, false);
-        return new ItemViewHolder(view);
+        return new ItemViewHolderReceipt(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolderReceipt holder, int position) {
         Log.e("detail", FetchData.items.get(position));
         holder.item.setText(FetchData.items.get(position));
     };

@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
 
-public class ItemViewHolder extends RecyclerView.ViewHolder {
+public class ItemViewHolderShoppingcart extends RecyclerView.ViewHolder {
 
     TextView name, count;
 
-    public ItemViewHolder(View itemView) {
+    public ItemViewHolderShoppingcart(View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.name);
         count = itemView.findViewById(R.id.quantity);

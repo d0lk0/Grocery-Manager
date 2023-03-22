@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
 
-public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolder> {
+public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShoppingcart> {
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemViewHolderShoppingcart onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item, parent, false);
-        return new ItemViewHolder(view);
+        return new ItemViewHolderShoppingcart(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemViewHolderShoppingcart holder, int position) {
         holder.name.setText(ShoppingcartFragment.items.get(position));
         holder.count.setText(String.format("%s Ks", (Math.round(Math.random() * (7 - 1)) + 1)));
     }

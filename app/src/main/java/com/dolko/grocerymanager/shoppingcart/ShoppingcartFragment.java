@@ -26,29 +26,31 @@ public class ShoppingcartFragment extends Fragment {
     DatabaseHelper databaseHelper;
     private AdapterShoppingcart adapterShoppingcart;
     private RecyclerView recyclerView;
+
     public static List<String> items = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        View view = inflater.inflate(R.layout.fragment_shoppingcart, container, false );
-        databaseHelper = new DatabaseHelper(getContext());
-        return view;
+        return inflater.inflate(R.layout.fragment_shoppingcart, container, false );
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        databaseHelper = new DatabaseHelper(getContext());
+
         Cursor data = databaseHelper.getData();
         if (data.moveToFirst()) {
             do {
-                int index = data.getColumnIndex("add_date");
+                int index = data.getColumnIndex("product_name");
                 if (index != -1) {
                     items.add(data.getString(index));
                 }
             } while (data.moveToNext());
         }
+
         data.close();
 
         adapterShoppingcart = new AdapterShoppingcart();
