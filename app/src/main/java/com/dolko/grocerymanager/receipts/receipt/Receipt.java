@@ -57,10 +57,4 @@ public class Receipt extends Fragment {
         price.setText(FetchData.detail[2]);
     }
 
-    public void setHeaderData(){
-        name.setText(FetchData.detail[0]);
-        date.setText(FetchData.detail[1]);
-        price.setText(FetchData.detail[2]);
-    }
-
 }

@@ -25,9 +25,11 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + TABLE_NAME + "(\n" +
                 "\t`id` integer PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t" + COL1 + " text NULL DEFAULT NULL,\n" +
-                "\t" + COL2 + " DATE NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "\t" + COL2 + " DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 "\t" + COL3 + " text NULL DEFAULT NULL);";
         db.execSQL(createTable);
+
+        // TODO: WRONG TIMEZONE
     }
 
     @Override

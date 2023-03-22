@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
 
-public class Adapter extends RecyclerView.Adapter<ItemViewHolder> {
+public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolder> {
 
     @NonNull
     @Override

@@ -60,6 +60,7 @@ public class FetchData  {
         detail = new String[4];
 
         if (receiptContent != null) {
+            items.clear();
             try {
                 detail[0] = receiptContent.getJSONObject("receipt").getJSONObject("organization").getString("name");
                 detail[1] = receiptContent.getJSONObject("receipt").getString("createDate");

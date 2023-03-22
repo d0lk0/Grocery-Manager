@@ -24,7 +24,7 @@ import java.util.List;
 public class ShoppingcartFragment extends Fragment {
 
     DatabaseHelper databaseHelper;
-    private Adapter adapter;
+    private AdapterShoppingcart adapterShoppingcart;
     private RecyclerView recyclerView;
     public static List<String> items = new ArrayList<>();
 
@@ -51,11 +51,11 @@ public class ShoppingcartFragment extends Fragment {
         }
         data.close();
 
-        adapter = new Adapter();
+        adapterShoppingcart = new AdapterShoppingcart();
 
         recyclerView = view.findViewById(R.id.recycler_view_shopping_cart_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapterShoppingcart);
 
         enableSwipeToDeleteAndUndo();
     }
@@ -67,12 +67,11 @@ public class ShoppingcartFragment extends Fragment {
                 final int position = viewHolder.getAdapterPosition();
                 final String item = items.get(position);
 
-                adapter.removeItem(position);
+                adapterShoppingcart.removeItem(position);
 
                 Snackbar snackbar = Snackbar.make(recyclerView, "Item was removed from the list.", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", view -> {
-
-                    adapter.restoreItem(item, position);
+                    adapterShoppingcart.restoreItem(item, position);
                     recyclerView.scrollToPosition(position);
                 });
 
