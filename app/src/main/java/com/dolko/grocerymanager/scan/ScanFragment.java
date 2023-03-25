@@ -31,8 +31,6 @@ public class ScanFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        View view = inflater.inflate(R.layout.fragment_scan, container, false );
-
         databaseReceipts = new DatabaseReceipts(getContext());
 
         ScanOptions options = new ScanOptions();
@@ -42,12 +40,12 @@ public class ScanFragment extends Fragment {
         options.setCaptureActivity(CaptActivity.class);
         barLauncher.launch(options);
 
-        return view;
+        return inflater.inflate(R.layout.fragment_scan, container, false );
     }
 
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result-> {
         if(result.getContents() == null) {
-            Toast.makeText(getContext(), "No content in QR Code!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Skúste znovu", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -58,10 +56,10 @@ public class ScanFragment extends Fragment {
                     requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Receipt()).commit();
                 }
             } catch (IOException | JSONException e) {
-                Log.e("Error: ", "Error scanning");
+                Log.e("Error: ", "Error when fetching data");
                 throw new RuntimeException(e);}
         } else {
-            Toast.makeText(getContext(), "Error wrong id of receipt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Chybný formát kódu bločku!", Toast.LENGTH_SHORT).show();
         }
     });
 }

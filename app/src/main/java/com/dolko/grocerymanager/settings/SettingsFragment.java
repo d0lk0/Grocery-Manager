@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment;
 
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseHelper;
+import com.dolko.grocerymanager.database.DatabaseReceipts;
 import com.dolko.grocerymanager.shoppingcart.ShoppingcartFragment;
 
 public class SettingsFragment extends Fragment {
 
     DatabaseHelper databaseHelper;
+    DatabaseReceipts databaseReceipts;
 
     @Nullable
     @Override
@@ -23,6 +25,7 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false );
 
         databaseHelper = new DatabaseHelper(getContext());
+        databaseReceipts = new DatabaseReceipts(getContext());
 
         Button btn_insert = view.findViewById(R.id.insert_items);
         Button btn_delete = view.findViewById(R.id.delete_items);

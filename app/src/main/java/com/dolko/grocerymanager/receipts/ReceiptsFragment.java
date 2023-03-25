@@ -2,7 +2,7 @@ package com.dolko.grocerymanager.receipts;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,6 @@ import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ReceiptsFragment extends Fragment {
     DatabaseReceipts databaseReceipts;
@@ -46,14 +46,23 @@ public class ReceiptsFragment extends Fragment {
         String[] tmp;
 
         while(data.moveToNext()) {
-            tmp = new String[2];
-            tmp[0] = data.getString(data.getColumnIndexOrThrow("receipt_id"));
+            tmp = new String[4];
+            tmp[0] = data.getString(data.getColumnIndexOrThrow("name"));
             tmp[1] = data.getString(data.getColumnIndexOrThrow("add_date"));
-            Log.e("data:", Arrays.toString(tmp));
+            tmp[2] = data.getString(data.getColumnIndexOrThrow("price"));
+            tmp[3] = data.getString(data.getColumnIndexOrThrow("receipt_id"));
             items.add(tmp);
         }
 
         data.close();
+
+        view.setOnKeyListener((v, keyCode, event) -> {
+            if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                return true;
+            }
+            return false;
+        });
     }
 
 }

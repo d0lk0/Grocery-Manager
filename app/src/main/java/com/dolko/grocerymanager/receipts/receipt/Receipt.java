@@ -36,7 +36,7 @@ public class Receipt extends Fragment {
         save = view.findViewById(R.id.button_save_receipt);
 
         save.setOnClickListener(e ->{
-            databaseReceipts.addReceipt(FetchData.detail[3], FetchData.items.toString());
+            databaseReceipts.addReceipt(FetchData.detail[3], (FetchData.detail[1]).replace("." ,"-"), FetchData.detail[2], FetchData.detail[0]);
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceiptsFragment()).commit();
         });
 
@@ -56,5 +56,4 @@ public class Receipt extends Fragment {
         date.setText(FetchData.detail[1]);
         price.setText(FetchData.detail[2]);
     }
-
 }

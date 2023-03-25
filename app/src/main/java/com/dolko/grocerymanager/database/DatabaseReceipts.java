@@ -8,16 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseReceipts extends SQLiteOpenHelper {
-
     private static final String TAG = "DatabaseReceipts";
-
     private static final String TABLE_NAME = "stored_receipts";
     private static final String COL1 = "receipt_id";
     private static final String COL2 = "add_date";
-    private static final String COL3 = "items";
+    private static final String COL3 = "price";
+    private static final String COL4 = "name";
 
     public DatabaseReceipts(Context context) {
-        super(context, TABLE_NAME, null, 1);
+        super(context, TABLE_NAME, null, 2);
     }
 
     @Override
@@ -25,28 +24,32 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + TABLE_NAME + "(\n" +
                 "\t`id` integer PRIMARY KEY AUTOINCREMENT,\n" +
                 "\t" + COL1 + " text NULL DEFAULT NULL,\n" +
-                "\t" + COL2 + " DATETIME NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-                "\t" + COL3 + " text NULL DEFAULT NULL);";
-        db.execSQL(createTable);
+                "\t" + COL2 + " DATETIME NULL DEFAULT NULL,\n" +
+                "\t" + COL3 + " text NULL DEFAULT NULL,\n" +
+                "\t" + COL4 + " text NULL DEFAULT NULL);";
 
-        // TODO: WRONG TIMEZONE
+        db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int factory, int version) {
-        db.execSQL("DROP IF TABLE EXISTS" + TABLE_NAME);
+        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    public boolean addReceipt(String receiptID, String items) {
+    public boolean addReceipt(String receiptID, String time, String price, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL1, receiptID);
-        Log.d(TAG, "addData: Adding " + receiptID + " to " + TABLE_NAME);
+        contentValues.put(COL2, time);
+        contentValues.put(COL3, price);
+        contentValues.put(COL4, name);
 
-        contentValues.put(COL3, items);
-        Log.d(TAG, "addData: Adding " + items + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + receiptID + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + time + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + price + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
