@@ -89,12 +89,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public Cursor getDataForMainMenu(){
+    public Cursor getLimitedData(int limit){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT " + COL1 + ", " + COL2 +
-                " FROM " + TABLE_NAME +
-                " WHERE " + COL2 + " >= date() " +
-                " ORDER BY " + COL2 + " ASC LIMIT 3";
+        String query = "SELECT * FROM " + TABLE_NAME + " LIMIT " + limit;
         return db.rawQuery(query, null);
     }
 

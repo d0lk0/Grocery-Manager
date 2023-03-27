@@ -37,27 +37,15 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addReceipt(String receiptID, String time, String price, String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COL1, receiptID);
-        contentValues.put(COL2, time);
-        contentValues.put(COL3, price);
-        contentValues.put(COL4, name);
-
-        Log.d(TAG, "addData: Adding " + receiptID + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + time + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + price + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
-
-        long result = db.insert(TABLE_NAME, null, contentValues);
-        return result != -1;
-    }
-
     public Cursor getAllReceipts(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
+        return db.rawQuery(query, null);
+    }
+
+    public Cursor getLimitedData(int limit){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " LIMIT " + limit;
         return db.rawQuery(query, null);
     }
 
@@ -76,6 +64,24 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         String query = "SELECT * " + " FROM " + TABLE_NAME +
                        " WHERE " + COL1 + " = '" + name + "'";
         return db.rawQuery(query, null);
+    }
+
+    public boolean addReceipt(String receiptID, String time, String price, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL1, receiptID);
+        contentValues.put(COL2, time);
+        contentValues.put(COL3, price);
+        contentValues.put(COL4, name);
+
+        Log.d(TAG, "addData: Adding " + receiptID + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + time + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + price + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
+
+        long result = db.insert(TABLE_NAME, null, contentValues);
+        return result != -1;
     }
 
     /*

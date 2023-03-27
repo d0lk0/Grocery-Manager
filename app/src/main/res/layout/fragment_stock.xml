@@ -7,7 +7,7 @@
     tools:context=".shoppingcart.ShoppingcartFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_shopping_cart_items"
+        android:id="@+id/recycler_view_stock"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

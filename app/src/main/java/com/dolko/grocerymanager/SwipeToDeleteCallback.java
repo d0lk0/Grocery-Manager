@@ -1,4 +1,4 @@
-package com.dolko.grocerymanager.shoppingcart;
+package com.dolko.grocerymanager;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -28,7 +28,7 @@ abstract public class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
     private int intrinsicHeight;
 
 
-    SwipeToDeleteCallback(Context context) {
+    protected SwipeToDeleteCallback(Context context) {
         mContext = context;
         mBackground = new ColorDrawable();
         backgroundColor = Color.parseColor("#b80f0a");
