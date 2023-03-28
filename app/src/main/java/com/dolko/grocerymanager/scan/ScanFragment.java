@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 public class ScanFragment extends Fragment {
 
     DatabaseReceipts databaseReceipts;
+    Receipt receipt;
 
     @Nullable
     @Override
@@ -53,7 +54,11 @@ public class ScanFragment extends Fragment {
             try {
                 FetchData.getUrlContent(result.getContents());
                 if(FetchData.detail != null){
-                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Receipt()).commit();
+                    Receipt fragment = new Receipt();
+                    Bundle args = new Bundle();
+                    args.putString("caller", "VISIBLE");
+                    fragment.setArguments(args);
+                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 }
             } catch (IOException | JSONException e) {
                 Log.e("Error: ", "Error when fetching data");

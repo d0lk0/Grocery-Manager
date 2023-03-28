@@ -44,12 +44,12 @@ public class ShoppingcartFragment extends Fragment {
 
         Cursor data = databaseHelper.getData();
         if (data.moveToFirst()) {
-            do {
+            while(data.moveToNext()) {
                 int index = data.getColumnIndex("product_name");
                 if (index != -1) {
                     items.add(data.getString(index));
                 }
-            } while (data.moveToNext());
+            }
         }
 
         data.close();
@@ -60,7 +60,7 @@ public class ShoppingcartFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterShoppingcart);
 
-        enableSwipeToDeleteAndUndo();
+        //enableSwipeToDeleteAndUndo();
     }
 
     private void enableSwipeToDeleteAndUndo() {
@@ -86,4 +86,6 @@ public class ShoppingcartFragment extends Fragment {
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
         itemTouchhelper.attachToRecyclerView(recyclerView);
     }
+
+
 }

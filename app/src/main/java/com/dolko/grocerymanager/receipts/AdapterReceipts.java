@@ -1,5 +1,6 @@
 package com.dolko.grocerymanager.receipts;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts> {
+    Receipt receipt;
+
     @NonNull
     @Override
     public ItemViewHolderReceipts onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,8 +50,12 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
                 try {
                     FetchData.getUrlContent(holder.receipt_id.getText().toString());
                     if(FetchData.detail != null){
+                        Receipt fragment = new Receipt();
+                        Bundle args = new Bundle();
+                        args.putString("caller", "GONE");
+                        fragment.setArguments(args);
                         ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container, new Receipt()).addToBackStack( null ).commit();
+                                .replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
                     }
                 } catch (IOException | JSONException e) {
                     Log.e("Error: ", "Error scanning");

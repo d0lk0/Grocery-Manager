@@ -1,6 +1,7 @@
 package com.dolko.grocerymanager.receipts.receipt;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,14 @@ public class Receipt extends Fragment {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceiptsFragment()).commit();
         });
 
+        Bundle args = getArguments();
+        Log.e("Error: ", String.valueOf(args));
+        if (args != null) {
+            String caller = args.getString("caller");
+            if ("VISIBLE".equals(caller)) save.setVisibility(View.VISIBLE);
+            else if ("GONE".equals(caller)) save.setVisibility(View.GONE);
+        }
+
         return view;
     }
 
@@ -56,4 +65,6 @@ public class Receipt extends Fragment {
         date.setText(FetchData.detail[1]);
         price.setText(FetchData.detail[2]);
     }
+
+
 }

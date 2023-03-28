@@ -24,7 +24,7 @@
             android:layout_margin="10dp">
 
             <TextView
-                android:id="@+id/receipt_name"
+                android:id="@+id/item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
@@ -47,7 +47,7 @@
                 tools:layout_editor_absoluteY="43dp" />
 
             <TextView
-                android:id="@+id/receipt_price"
+                android:id="@+id/item_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
@@ -60,14 +60,14 @@
                 tools:layout_editor_absoluteY="42dp" />
 
             <TextView
-                android:id="@+id/receipt_id"
+                android:id="@+id/item_expiraton_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:visibility="gone"
-                card_view:layout_constraintBottom_toBottomOf="@+id/receipt_name"
-                card_view:layout_constraintStart_toEndOf="@+id/receipt_name"
-                card_view:layout_constraintTop_toTopOf="@+id/receipt_name" />
+                card_view:layout_constraintBottom_toBottomOf="@+id/item_name"
+                card_view:layout_constraintStart_toEndOf="@+id/item_name"
+                card_view:layout_constraintTop_toTopOf="@+id/item_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
