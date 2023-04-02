@@ -39,7 +39,7 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
 
     public Cursor getAllReceipts(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL2 +" DESC";
         return db.rawQuery(query, null);
     }
 

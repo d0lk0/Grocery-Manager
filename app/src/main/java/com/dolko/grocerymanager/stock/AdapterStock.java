@@ -16,7 +16,7 @@ public class AdapterStock extends RecyclerView.Adapter<ItemViewHolderStock>{
     @Override
     public ItemViewHolderStock onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item, parent, false);
+        View view = inflater.inflate(R.layout.item_shoppingcart, parent, false);
         return new ItemViewHolderStock(view);
     }
 

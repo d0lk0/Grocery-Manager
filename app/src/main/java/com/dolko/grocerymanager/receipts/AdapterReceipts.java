@@ -39,6 +39,7 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
         else if(tmp_name.contains("kaufland")) holder.logo.setImageResource(R.mipmap.kaufland);
         else if(tmp_name.contains("milk-agro")) holder.logo.setImageResource(R.mipmap.milkagro);
         else if(tmp_name.contains("tesco")) holder.logo.setImageResource(R.mipmap.tesco);
+        else holder.logo.setImageResource(R.mipmap.default_shop);
 
         holder.name.setText(ReceiptsFragment.items.get(position)[0]);
         holder.date.setText(ReceiptsFragment.items.get(position)[1]);
