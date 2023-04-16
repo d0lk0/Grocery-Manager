@@ -27,7 +27,6 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
                 "\t" + COL2 + " DATETIME NULL DEFAULT NULL,\n" +
                 "\t" + COL3 + " text NULL DEFAULT NULL,\n" +
                 "\t" + COL4 + " text NULL DEFAULT NULL);";
-
         db.execSQL(createTable);
     }
 
@@ -39,13 +38,13 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
 
     public Cursor getAllReceipts(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL2 +" DESC";
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL2 + " DESC";
         return db.rawQuery(query, null);
     }
 
     public Cursor getLimitedData(int limit){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " LIMIT " + limit;
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL2 + " DESC" + " LIMIT " + limit;
         return db.rawQuery(query, null);
     }
 

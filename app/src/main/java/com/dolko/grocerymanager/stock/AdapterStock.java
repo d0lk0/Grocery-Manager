@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
-import com.dolko.grocerymanager.shoppingcart.ShoppingcartFragment;
 
 public class AdapterStock extends RecyclerView.Adapter<ItemViewHolderStock>{
 
@@ -32,12 +31,12 @@ public class AdapterStock extends RecyclerView.Adapter<ItemViewHolderStock>{
     }
 
     public void removeItem(int position) {
-        ShoppingcartFragment.items.remove(position);
+        StockFragment.items.remove(position);
         notifyItemRemoved(position);
     }
 
     public void restoreItem(String item, int position) {
-        ShoppingcartFragment.items.add(position, item);
+        StockFragment.items.add(position, item);
         notifyItemInserted(position);
     }
 }

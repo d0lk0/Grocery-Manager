@@ -24,10 +24,13 @@ public class ReceiptsFragment extends Fragment {
     public AdapterReceipts adapter;
     static ArrayList<String[]> items = new ArrayList<>();
 
+    RecyclerView recyclerView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        return inflater.inflate(R.layout.fragment_receipts, container, false );
+        View view = inflater.inflate(R.layout.fragment_receipts, container, false );
+        return view;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class ReceiptsFragment extends Fragment {
 
         adapter = new AdapterReceipts();
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_receipts);
+        recyclerView = view.findViewById(R.id.recycler_view_receipts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 

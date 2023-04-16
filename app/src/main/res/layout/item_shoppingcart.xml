@@ -26,16 +26,18 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 android:gravity="left"
                 android:paddingStart="10dp"
                 android:text="TextView"
                 android:textColor="@color/white"
-                card_view:layout_constraintBottom_toTopOf="@+id/quantity"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/quantity"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -43,25 +45,29 @@
                 android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
                 android:gravity="left"
                 android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="TextView"
                 android:textColor="@color/white"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/name" />
+                card_view:layout_constraintEnd_toStartOf="@+id/button_more_info"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/button_more_info"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_3_dots"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#656565"
+                android:layout_marginEnd="10dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_3_dots"
                 tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

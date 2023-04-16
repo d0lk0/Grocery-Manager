@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 public class ScanFragment extends Fragment {
 
     DatabaseReceipts databaseReceipts;
-    Receipt receipt;
 
     @Nullable
     @Override

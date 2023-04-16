@@ -5,7 +5,7 @@ import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dolko.grocerymanager.database.DatabaseHelper;
+import com.dolko.grocerymanager.database.DatabaseShoppingCart;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
 import com.dolko.grocerymanager.overview.OverviewFragment;
 import com.dolko.grocerymanager.receipts.ReceiptsFragment;
@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseHelper databaseHelper;
+    DatabaseShoppingCart databaseShoppingCart;
     DatabaseReceipts databaseReceipts;
 
     @Override
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseShoppingCart = new DatabaseShoppingCart(this);
         databaseReceipts = new DatabaseReceipts(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new OverviewFragment()).commit();
@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FloatingActionButton scan = findViewById(R.id.menu_scan_button);
-        scan.setOnClickListener(e -> {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScanFragment()).commit();
-        });
+        scan.setOnClickListener(e -> getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ScanFragment()).commit());
     }
 }

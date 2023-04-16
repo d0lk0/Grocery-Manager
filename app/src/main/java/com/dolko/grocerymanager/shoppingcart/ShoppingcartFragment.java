@@ -1,8 +1,8 @@
 package com.dolko.grocerymanager.shoppingcart;
 
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,25 +10,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
-import com.dolko.grocerymanager.SwipeToDeleteCallback;
-import com.dolko.grocerymanager.database.DatabaseHelper;
-import com.google.android.material.snackbar.Snackbar;
+import com.dolko.grocerymanager.database.DatabaseShoppingCart;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShoppingcartFragment extends Fragment {
 
-    DatabaseHelper databaseHelper;
+    DatabaseShoppingCart databaseShoppingCart;
     private AdapterShoppingcart adapterShoppingcart;
     private RecyclerView recyclerView;
 
-    public static List<String> items = new ArrayList<>();
+    public static List<String[]> items = new ArrayList<>();
 
     @Nullable
     @Override
@@ -38,53 +36,28 @@ public class ShoppingcartFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        items.clear();
 
-        databaseHelper = new DatabaseHelper(getContext());
-
-        Cursor data = databaseHelper.getData();
-        if (data.moveToFirst()) {
-            while(data.moveToNext()) {
-                int index = data.getColumnIndex("product_name");
-                if (index != -1) {
-                    items.add(data.getString(index));
-                }
-            }
-        }
-
-        data.close();
-
+        databaseShoppingCart = new DatabaseShoppingCart(getContext());
         adapterShoppingcart = new AdapterShoppingcart();
 
         recyclerView = view.findViewById(R.id.recycler_view_shopping_cart_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterShoppingcart);
 
-        //enableSwipeToDeleteAndUndo();
-    }
+        String[] tmp;
+        Cursor data = databaseShoppingCart.getData();
 
-    private void enableSwipeToDeleteAndUndo() {
-        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getContext()) {
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                final int position = viewHolder.getAdapterPosition();
-                final String item = items.get(position);
+        while(data.moveToNext()) {
+            tmp = new String[3];
+            tmp[0] = data.getString(data.getColumnIndexOrThrow("product_name"));
+            tmp[1] = data.getString(data.getColumnIndexOrThrow("quantity"));
+            tmp[2] = data.getString(data.getColumnIndexOrThrow("id"));
+            items.add(tmp);
+            Log.e("items", Arrays.toString(tmp));
+        }
 
-                adapterShoppingcart.removeItem(position);
-
-                Snackbar snackbar = Snackbar.make(recyclerView, "Item was removed from the list.", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", view -> {
-                    adapterShoppingcart.restoreItem(item, position);
-                    recyclerView.scrollToPosition(position);
-                });
-
-                snackbar.setActionTextColor(Color.YELLOW);
-                snackbar.show();
-            }
-        };
-
-        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
-        itemTouchhelper.attachToRecyclerView(recyclerView);
+        data.close();
     }
 
 

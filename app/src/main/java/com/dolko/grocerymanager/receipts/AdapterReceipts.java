@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts> {
-    Receipt receipt;
 
     @NonNull
     @Override
@@ -70,6 +69,5 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
         Log.e("receipts item count", String.valueOf(ReceiptsFragment.items.size()));
         return ReceiptsFragment.items.size();
     }
-
 }
 
