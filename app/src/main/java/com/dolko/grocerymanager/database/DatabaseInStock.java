@@ -12,7 +12,7 @@ public class DatabaseInStock extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "stored_items";
     private static final String COL1 = "name";
     private static final String COL2 = "quantity";
-    private static final String COL3= "unit"; //kus, balenie, kilogram
+    private static final String COL3= "unit"; //ks, bal, kg
     private static final String COL4 = "exp_date";
     private static final String COL5 = "buy_date";
     private static final String COL6 = "category"; //ovocie, zelenina, mäso, mliečne výrobky, atď.
@@ -44,7 +44,7 @@ public class DatabaseInStock extends SQLiteOpenHelper {
 
     public Cursor getAllItems(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL2 +" DESC";
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL1 +" DESC";
         return db.rawQuery(query, null);
     }
 
@@ -64,28 +64,34 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public boolean addReceipt(String name, String quantity, String exp_date, String buy_date) {
+    public boolean addReceipt(String name, String quantity, String unit, String exp_date, String buy_date, String category, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL1, name);
         contentValues.put(COL2, quantity);
-        contentValues.put(COL3, exp_date);
-        contentValues.put(COL4, buy_date);
+        contentValues.put(COL3, unit);
+        contentValues.put(COL4, exp_date);
+        contentValues.put(COL5, buy_date);
+        contentValues.put(COL6, category);
+        contentValues.put(COL7, description);
 
         Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
         Log.d(TAG, "addData: Adding " + quantity + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + unit + " to " + TABLE_NAME);
         Log.d(TAG, "addData: Adding " + exp_date + " to " + TABLE_NAME);
         Log.d(TAG, "addData: Adding " + buy_date + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + category + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + description + " to " + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
     }
 
-    public void deleteItem(String item_name, String item_exp_date){
+    public void deleteItem(String name, String unit, String exp_date, String buy_date, String category){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME +
-                " WHERE " + COL1 + " = '" + item_name + "'" + " AND " + COL2 + " = '" + item_exp_date + "'";
+                " WHERE " + COL1 + " = '" + name + "'" + " AND " + COL2 + " = '" + unit + "'";
 
         //Log.d(TAG, "deleteReceipt: Deleting " + receiptId + " with date: " + date + " from database.");
         db.execSQL(query);

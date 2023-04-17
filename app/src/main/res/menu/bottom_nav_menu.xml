@@ -19,7 +19,7 @@
         android:icon="@mipmap/shopping_list"
         android:title="Zoznam" />
 
-    <item android:id="@+id/mSettings"
-        android:title="Nastavenia"
-        android:icon="@drawable/ic_settings" />
+    <item android:id="@+id/mStockAtHome"
+        android:title="Doma"
+        android:icon="@mipmap/icon_stock" />
 </menu>

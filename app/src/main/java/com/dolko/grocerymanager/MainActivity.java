@@ -5,13 +5,13 @@ import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dolko.grocerymanager.database.DatabaseShoppingCart;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
+import com.dolko.grocerymanager.database.DatabaseShoppingCart;
 import com.dolko.grocerymanager.overview.OverviewFragment;
 import com.dolko.grocerymanager.receipts.ReceiptsFragment;
 import com.dolko.grocerymanager.scan.ScanFragment;
-import com.dolko.grocerymanager.settings.SettingsFragment;
 import com.dolko.grocerymanager.shoppingcart.ShoppingcartFragment;
+import com.dolko.grocerymanager.stock.StockFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.mShoppingcart:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShoppingcartFragment()).commit();
                     break;
-                case R.id.mSettings:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment()).commit();
+                case R.id.mStockAtHome:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new StockFragment()).commit();
                     break;
             }
             return true;
