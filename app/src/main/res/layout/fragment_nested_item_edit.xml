@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_edit_nested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="#D9D9D9"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPaddingBottom="20dp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.5"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent">
+
+        <!--YOUR CONTENT-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/item_nested_edit_quantity_h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Editovanie"
+                android:textColor="#656565"
+                android:textSize="20sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_nested_edit_quantityH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:paddingStart="5dp"
+                android:text="Počet"
+                android:textColor="#727272"
+                android:textSize="16sp"
+                card_view:layout_constraintBottom_toTopOf="@+id/item_nested_edit_quantity"
+                card_view:layout_constraintStart_toStartOf="@+id/item_nested_edit_quantity" />
+
+            <EditText
+                android:id="@+id/item_nested_edit_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#656565"
+                android:gravity="start"
+                android:padding="10dp"
+                android:paddingStart="10dp"
+                android:inputType="number"
+                android:hint="10"
+                android:textColor="@color/white"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/item_nested_edit_quantity_h" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/button_save_stock_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="#00FF00"
+        android:text="Uložiť"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

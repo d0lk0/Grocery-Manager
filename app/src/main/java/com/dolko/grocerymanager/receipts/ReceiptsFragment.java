@@ -46,10 +46,8 @@ public class ReceiptsFragment extends Fragment {
         databaseReceipts = new DatabaseReceipts(getContext());
         Cursor data = databaseReceipts.getAllReceipts();
 
-        String[] tmp;
-
         while(data.moveToNext()) {
-            tmp = new String[4];
+            String[] tmp = new String[4];
             tmp[0] = data.getString(data.getColumnIndexOrThrow("name"));
             tmp[1] = data.getString(data.getColumnIndexOrThrow("add_date"));
             tmp[2] = data.getString(data.getColumnIndexOrThrow("price"));

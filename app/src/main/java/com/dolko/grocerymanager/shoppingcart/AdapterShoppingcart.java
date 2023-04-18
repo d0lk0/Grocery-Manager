@@ -56,12 +56,9 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bottom_sheet_layout);
 
-            LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
             LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
 
-            editLayout.setOnClickListener(v -> {
-                dialog.dismiss();
-            });
+            dialog.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
 
             deleteLayout.setOnClickListener(v -> {
                 holder.name.setPaintFlags(holder.name.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));

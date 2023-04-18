@@ -1,6 +1,8 @@
 package com.dolko.grocerymanager.stock;
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseInStock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StockFragment extends Fragment {
@@ -22,6 +25,8 @@ public class StockFragment extends Fragment {
     private List<DataModelStock> items;
     private AdapterStock adapter;
     private DatabaseInStock databaseInStock;
+
+    private String[] titles = {"Pečivo", "Mäsové výrobky", "Ovocie a Zelenia", "Mrazené výrobky", "Cestoviny", "Mliečne výrobky", "Trvanlivé potraviny", "Nápoje"};
 
     @Nullable
     @Override
@@ -41,7 +46,27 @@ public class StockFragment extends Fragment {
 
         items = new ArrayList<>();
 
-        List<String> nestedList1 = new ArrayList<>();
+        List<String[]> temp_s = new ArrayList<>();
+
+        for(String title : titles){
+            Cursor data = databaseInStock.getCategoryItems(title);
+            String[] tmp;
+
+            while (data.moveToNext()) {
+                tmp = new String[2];
+                tmp[0] = data.getString(data.getColumnIndexOrThrow("name"));
+                tmp[1] = data.getString(data.getColumnIndexOrThrow("quantity"));
+                temp_s.add(tmp);
+                Log.e("items", Arrays.toString(tmp));
+            }
+            data.close();
+
+            items.add(new DataModelStock(temp_s, title));
+            temp_s = new ArrayList<>();
+        }
+
+
+        /*List<String> nestedList1 = new ArrayList<>();
         nestedList1.add("Chlieb");
         nestedList1.add("Rohlík");
         nestedList1.add("Bageta");
@@ -100,14 +125,15 @@ public class StockFragment extends Fragment {
         nestedList8.add("Vinea");
         nestedList8.add("Fanta");
 
-        items.add(new DataModelStock(nestedList1 , "Pečivo"));
-        items.add(new DataModelStock(nestedList2 , "Mäsové výrobky"));
-        items.add(new DataModelStock(nestedList3 , "Ovocie a Zelenia"));
-        items.add(new DataModelStock(nestedList4 , "Mrazené výrobky"));
-        items.add(new DataModelStock(nestedList5 , "Cestoviny"));
-        items.add(new DataModelStock(nestedList6 , "Mliečne výrobky"));
-        items.add(new DataModelStock(nestedList7 , "Trvanlivé potraviny"));
-        items.add(new DataModelStock(nestedList8 , "Nápoje"));
+        items.add(new DataModelStock(, "Pečivo"));
+        items.add(new DataModelStock(nestedList2, "Mäsové výrobky"));
+        items.add(new DataModelStock(nestedList3, "Ovocie a Zelenia"));
+        items.add(new DataModelStock(nestedList4, "Mrazené výrobky"));
+        items.add(new DataModelStock(nestedList5, "Cestoviny"));
+        items.add(new DataModelStock(nestedList6, "Mliečne výrobky"));
+        items.add(new DataModelStock(nestedList7, "Trvanlivé potraviny"));
+        items.add(new DataModelStock(nestedList8, "Nápoje"));*/
+
 
         adapter = new AdapterStock(items);
         recyclerView.setAdapter(adapter);

@@ -96,12 +96,12 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         db.execSQL(query);
     }*/
 
-    public void deleteReceipt(String receiptId, String date){
+    public void removeReceipt(String receiptId){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + TABLE_NAME +
-                       " WHERE " + COL1 + " = '" + receiptId + "'" + " AND " + COL2 + " = '" + date + "'";
+                       " WHERE " + COL1 + " = '" + receiptId + "'";
 
-        Log.d(TAG, "deleteReceipt: Deleting " + receiptId + " with date: " + date + " from database.");
+        Log.d(TAG, "deleteReceipt: Deleting " + receiptId);
         db.execSQL(query);
     }
 

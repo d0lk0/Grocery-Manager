@@ -71,7 +71,7 @@ android:layout_height="wrap_content">
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            android:src="@android:mipmap/sym_def_app_icon"/>
+            android:src="@mipmap/icon_food"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

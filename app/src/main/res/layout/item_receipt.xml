@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/receipt_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/rectangle"
@@ -41,6 +41,7 @@
                 android:paddingStart="10dp"
                 android:text="TextView"
                 android:textColor="@color/white"
+                card_view:layout_constraintEnd_toEndOf="@+id/button_receipt_more_info"
                 card_view:layout_constraintStart_toEndOf="@+id/receipt_logo"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +71,7 @@
                 android:text="TextView"
                 android:textColor="@color/white"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintEnd_toStartOf="@+id/button_receipt_more_info"
                 card_view:layout_constraintStart_toEndOf="@+id/receipt_creation_date"
                 card_view:layout_constraintTop_toTopOf="@+id/receipt_creation_date" />
 
@@ -83,6 +84,18 @@
                 card_view:layout_constraintBottom_toBottomOf="@+id/receipt_name"
                 card_view:layout_constraintStart_toEndOf="@+id/receipt_name"
                 card_view:layout_constraintTop_toTopOf="@+id/receipt_name" />
+
+            <ImageButton
+                android:id="@+id/button_receipt_more_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rectangle"
+                android:backgroundTint="#656565"
+                android:src="@drawable/ic_3_dots"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

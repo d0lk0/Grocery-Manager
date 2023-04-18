@@ -48,6 +48,35 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
+    public boolean addData(String name, String category, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL1, name);
+        Log.d(TAG, "addData: Adding " + category + " to " + TABLE_NAME);
+
+        contentValues.put(COL6, category);
+        Log.d(TAG, "addData: Adding " + category + " to " + TABLE_NAME);
+
+        contentValues.put(COL2, quantity);
+        Log.d(TAG, "addData: Adding " + quantity + " to " + TABLE_NAME);
+
+        long result = db.insert(TABLE_NAME, null, contentValues);
+        return result != -1;
+    }
+
+    public void updateItem(String name, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_NAME + " SET " + COL2 + " = '" + quantity + "' WHERE " + COL1 + " = '" + name + "';";
+        db.execSQL(query);
+    }
+
+    public Cursor getCategoryItems(String category){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL6 + " = '" + category + "'";
+        return db.rawQuery(query, null);
+    }
+
     public Cursor checkExistence(String name, String exp_date, String buy_date){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * " +
@@ -103,9 +132,55 @@ public class DatabaseInStock extends SQLiteOpenHelper {
     }
 
     public void insertContent(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_NAME + "VALUES\n" +
-                "x";
-        db.execSQL(query);
+        addData("Chlieb","Pečivo", 0);
+        addData("Rohlík","Pečivo", 0);
+        addData("Bageta","Pečivo", 0);
+        addData("Kaiserka","Pečivo", 0);
+        addData("Croissant","Pečivo", 0);
+        addData("Donut","Pečivo", 0);
+        addData("Tortila","Pečivo", 0);
+
+        addData("Hydina","Mäsové výrobky", 0);
+        addData("Bravčové","Mäsové výrobky", 0);
+        addData("Hovädzie","Mäsové výrobky", 0);
+        addData("Párky","Mäsové výrobky", 0);
+        addData("Klobásy","Mäsové výrobky", 0);
+        addData("Salámy","Mäsové výrobky", 0);
+        addData("Paštety","Mäsové výrobky", 0);
+        addData("Ryby","Mäsové výrobky", 0);
+
+        addData("Jablko", "Ovocie a Zelenia", 0);
+        addData("Hruška", "Ovocie a Zelenia", 0);
+        addData("Hrozno", "Ovocie a Zelenia", 0);
+        addData("Jahody", "Ovocie a Zelenia", 0);
+        addData("Melón", "Ovocie a Zelenia", 0);
+        addData("Mrkva", "Ovocie a Zelenia", 0);
+        addData("Mandarinka", "Ovocie a Zelenia", 0);
+        addData("Kapusta", "Ovocie a Zelenia", 0);
+
+        addData("Pizza", "Mrazené výrobky", 0);
+        addData("Ryby", "Mrazené výrobky", 0);
+        addData("Zmrzlina", "Mrazené výrobky", 0);
+        addData("Ľad", "Mrazené výrobky", 0);
+        addData("Zemiakové výrobky", "Mrazené výrobky", 0);
+
+        addData("Vaječné","Cestoviny", 0);
+
+        addData("Maslo","Mliečne výrobky", 0);
+        addData("Nátierka","Mliečne výrobky", 0);
+        addData("Syr","Mliečne výrobky", 0);
+        addData("Vajcia","Mliečne výrobky", 0);
+        addData("Jogurty","Mliečne výrobky", 0);
+        addData("Smotana","Mliečne výrobky", 0);
+
+        addData("Bazový sirup","Trvanlivé potraviny", 0);
+        addData("Kokosový koktejl", "Trvanlivé potraviny", 0);
+        addData("Mysli sypané", "Trvanlivé potraviny", 0);
+
+        addData("Kofola", "Nápoje", 0);
+        addData("Pepsi", "Nápoje", 0);
+        addData("Coca-Cola", "Nápoje", 0);
+        addData("Vinea", "Nápoje", 0);
+        addData("Fanta", "Nápoje", 0);
     }
 }

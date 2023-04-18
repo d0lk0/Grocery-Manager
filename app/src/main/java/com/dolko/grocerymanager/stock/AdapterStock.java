@@ -20,7 +20,7 @@ import java.util.List;
 public class AdapterStock extends RecyclerView.Adapter<AdapterStock.AdapterStockHolder>{
 
     private List<DataModelStock> mList;
-    private List<String> list = new ArrayList<>();
+    private List<String[]> list = new ArrayList<>();
 
     public AdapterStock(List<DataModelStock> mList){
         this.mList  = mList;

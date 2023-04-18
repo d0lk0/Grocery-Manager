@@ -76,18 +76,18 @@ public class DatabaseShoppingCart extends SQLiteOpenHelper {
 
     public void insertDBContent(){
         addData("Syr","1");
-        addData("Kečup","6");
+        addData("Kečup","2");
         addData("Horčica","3");
         addData("Šunka","4");
-        addData("Slivky","144");
-        addData("Maslo","148");
-        addData("Med","102");
+        addData("Slivky","12");
+        addData("Maslo","3");
+        addData("Med","1");
         addData("Banány","16");
-        addData("Jalbká","44");
-        addData("Mrkva","89");
-        addData("Vajcia","7");
-        addData("Chlieb","14");
-        addData("Smotana","10");
+        addData("Jalbká","8");
+        addData("Mrkva","3");
+        addData("Vajcia","1");
+        addData("Chlieb","1");
+        addData("Smotana","2");
     }
 
 

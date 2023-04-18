@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.getMenu().getItem(2).setEnabled(false);
         bottomNavigation.setSelectedItemId(R.id.mOverview);
 
-         /*String name = "Notifikácie";
+        /*String name = "Notifikácie";
         String description = "Dátum spotreby";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel("id", name, importance);

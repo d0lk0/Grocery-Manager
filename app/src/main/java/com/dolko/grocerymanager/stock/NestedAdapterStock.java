@@ -3,6 +3,7 @@ package com.dolko.grocerymanager.stock;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
@@ -22,9 +24,9 @@ import com.dolko.grocerymanager.R;
 import java.util.List;
 
 public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.NestedViewHolderStock>{
-    private List<String> mList;
+    private List<String[]> mList;
 
-    public NestedAdapterStock(List<String> mList){
+    public NestedAdapterStock(List<String[]> mList){
         this.mList = mList;
     }
 
@@ -37,24 +39,23 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
 
     @Override
     public void onBindViewHolder(@NonNull NestedViewHolderStock holder, int position) {
-        holder.name.setText(mList.get(position));
-        holder.quantity.setText("");
-        //holder.image.setImageResource();
+        holder.name.setText(mList.get(position)[0]);
+        holder.quantity.setText(String.format("%s ks", mList.get(position)[1]));
+
         holder.more.setOnClickListener(view ->{
             final Dialog dialog = new Dialog(view.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bottom_sheet_layout);
 
             LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
-            LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
+            dialog.findViewById(R.id.layoutDelete).setVisibility(View.GONE);
 
             editLayout.setOnClickListener(v -> {
-                dialog.dismiss();
-            });
-
-            deleteLayout.setOnClickListener(v -> {
-                //databaseShoppingCart.removeItem(ShoppingcartFragment.items.get(position)[2], ShoppingcartFragment.items.get(position)[0], ShoppingcartFragment.items.get(position)[1]);
-                removeItem(position);
+                EditItemFragment fragment = new EditItemFragment();
+                Bundle args = new Bundle();
+                args.putString("name", mList.get(position)[0]);
+                fragment.setArguments(args);
+                ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
                 dialog.dismiss();
             });
 

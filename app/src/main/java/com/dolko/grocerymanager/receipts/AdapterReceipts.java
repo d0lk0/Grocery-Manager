@@ -1,16 +1,23 @@
 package com.dolko.grocerymanager.receipts;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
+import com.dolko.grocerymanager.database.DatabaseReceipts;
 import com.dolko.grocerymanager.database.FetchData;
 import com.dolko.grocerymanager.receipts.receipt.Receipt;
 
@@ -21,11 +28,14 @@ import java.util.regex.Pattern;
 
 public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts> {
 
+    DatabaseReceipts databaseReceipts;
+
     @NonNull
     @Override
     public ItemViewHolderReceipts onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.item_receipt, parent, false);
+        databaseReceipts = new DatabaseReceipts(view.getContext());
         return new ItemViewHolderReceipts(view);
     }
 
@@ -44,6 +54,26 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
         holder.date.setText(ReceiptsFragment.items.get(position)[1]);
         holder.price.setText(ReceiptsFragment.items.get(position)[2]);
         holder.receipt_id.setText(ReceiptsFragment.items.get(position)[3]);
+
+        holder.receipt_more_info.setOnClickListener(view ->{
+            final Dialog dialog = new Dialog(view.getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.bottom_sheet_layout);
+            dialog.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+
+            LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
+
+            deleteLayout.setOnClickListener(v -> {
+                databaseReceipts.removeReceipt(ReceiptsFragment.items.get(position)[3]);
+                removeItem(position);
+                dialog.dismiss();
+            });
+
+            dialog.show();
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
+        });
 
         holder.itemView.setOnClickListener(view -> {
             if(Pattern.matches("[A-Z]-\\b[\\dA-F]{32}\\b", holder.receipt_id.getText())){
@@ -68,6 +98,13 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
     public int getItemCount() {
         Log.e("receipts item count", String.valueOf(ReceiptsFragment.items.size()));
         return ReceiptsFragment.items.size();
+    }
+
+    public void removeItem(int position) {
+        ReceiptsFragment.items.remove(position);
+        Log.e("pos", String.valueOf(position));
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, ReceiptsFragment.items.size());
     }
 }
 
