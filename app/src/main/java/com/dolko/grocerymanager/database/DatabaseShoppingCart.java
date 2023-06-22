@@ -49,6 +49,13 @@ public class DatabaseShoppingCart extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public void updateItem(String name, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.e("Update " , name  + " " + quantity);
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + COL2 + " = '" + quantity + "' WHERE " + COL1 + " = '" + name + "';");
+    }
+
+
     public void removeItem(String id, String name, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         Log.e("cred" , id  + " " + name  + " " + quantity);

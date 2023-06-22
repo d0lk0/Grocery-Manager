@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
@@ -55,10 +57,8 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
             final Dialog dialog = new Dialog(view.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bottom_sheet_layout);
-
             LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
-
-            dialog.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
+            LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
 
             deleteLayout.setOnClickListener(v -> {
                 holder.name.setPaintFlags(holder.name.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
@@ -68,6 +68,15 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
 
                 databaseShoppingCart.removeItem(ShoppingcartFragment.items.get(position)[2], ShoppingcartFragment.items.get(position)[0], ShoppingcartFragment.items.get(position)[1]);
                 removeItem(position);
+                dialog.dismiss();
+            });
+
+            editLayout.setOnClickListener(v -> {
+                EditItemFragmentShoppingcart fragment = new EditItemFragmentShoppingcart();
+                Bundle args = new Bundle();
+                args.putString("name", ShoppingcartFragment.items.get(position)[0]);
+                fragment.setArguments(args);
+                ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
                 dialog.dismiss();
             });
 

@@ -72,6 +72,7 @@ public class FetchData  {
                 for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject itemObject = itemsArray.getJSONObject(i);
                     String item_name = itemObject.getString("name");
+                    if (item_name.contains("Zľava") || item_name.contains("zľava") || item_name.contains("VRATNÝ")) continue;
                     int item_quantity = itemObject.getInt("quantity");
                     double item_price = itemObject.getDouble("price");
                     float pricePerItem = BigDecimal.valueOf(item_price)
