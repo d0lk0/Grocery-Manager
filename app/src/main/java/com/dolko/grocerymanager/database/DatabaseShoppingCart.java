@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseShoppingCart extends SQLiteOpenHelper {
-
     private static final String TAG = "ShoppingCart";
-
     private static final String TABLE_NAME = "shopping_cart";
     private static final String COL1 = "product_name";
     private static final String COL2 = "quantity";

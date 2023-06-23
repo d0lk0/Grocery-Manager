@@ -35,6 +35,8 @@
         </activity>
 
         <activity android:name=".activity.AddActivity" />
+        <activity android:name=".shoppingcart.addItemToShoppingcart" />
+
 
         <activity android:name=".activity.CaptActivity"
             android:screenOrientation="portrait"

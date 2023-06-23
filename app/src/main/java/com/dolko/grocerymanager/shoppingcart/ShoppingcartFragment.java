@@ -1,11 +1,13 @@
 package com.dolko.grocerymanager.shoppingcart;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +46,11 @@ public class ShoppingcartFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_shopping_cart_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapterShoppingcart);
+
+        Button addItem = view.findViewById(R.id.addItemToCart);
+        addItem.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), addItemToShoppingcart.class));
+        });
 
         String[] tmp;
         Cursor data = databaseShoppingCart.getData();
