@@ -38,7 +38,7 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
         holder.name.setText(ShoppingcartFragment.items.get(position)[0]);
         holder.count.setText(String.format("%s ks", ShoppingcartFragment.items.get(position)[1]));
 
-        holder.item_h.setOnClickListener(view -> { //TODO: ked bude vyše ako 1 kus tak dať okno, kolko kusov treba odškrtnuť
+        /*holder.item_h.setOnClickListener(view -> { //TODO: ked bude vyše ako 1 kus tak dať okno, kolko kusov treba odškrtnuť
             Log.e("hol:", String.valueOf(holder.name.getPaintFlags()));
             if(holder.name.getPaintFlags() != 1299){
                 holder.name.setPaintFlags(holder.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -51,7 +51,7 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
                 holder.item_h.setCardBackgroundColor(Color.parseColor("#D9D9D9"));
                 holder.item_h.getBackground().setAlpha(255);
             }
-        });
+        });*/
 
         holder.more.setOnClickListener(view ->{
             final Dialog dialog = new Dialog(view.getContext());

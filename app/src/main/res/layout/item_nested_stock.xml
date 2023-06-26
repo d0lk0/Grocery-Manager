@@ -31,7 +31,7 @@ android:layout_height="wrap_content">
             android:gravity="center"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Grocery and Stationary"
+
             android:textSize="16sp"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toTopOf="@+id/quantity_nested_stock"
@@ -46,7 +46,6 @@ android:layout_height="wrap_content">
             android:gravity="start"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="TextView"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/item_stock_nested_image"
             card_view:layout_constraintTop_toBottomOf="@+id/name_nested_stock"

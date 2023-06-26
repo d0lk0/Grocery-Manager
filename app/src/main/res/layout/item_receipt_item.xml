@@ -24,7 +24,6 @@
             android:backgroundTint="#656565"
             android:gravity="start"
             android:paddingStart="10dp"
-            android:text="TextView"
             android:textColor="@color/white"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/button_add_item_stock"
