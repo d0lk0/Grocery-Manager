@@ -1,6 +1,5 @@
 package com.dolko.grocerymanager.shoppingcart;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +48,8 @@ public class ShoppingcartFragment extends Fragment {
 
         Button addItem = view.findViewById(R.id.addItemToCart);
         addItem.setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), addItemToShoppingcart.class));
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new AddItemToShoppingcartFragment()).commit();
         });
 
         String[] tmp;
@@ -66,6 +66,4 @@ public class ShoppingcartFragment extends Fragment {
 
         data.close();
     }
-
-
 }

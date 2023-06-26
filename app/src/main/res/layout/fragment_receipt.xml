@@ -60,7 +60,6 @@
                 android:gravity="start"
                 android:padding="10dp"
                 android:paddingStart="10dp"
-                android:text="TextView"
                 android:textColor="@color/white"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintHorizontal_bias="0.0"
@@ -89,7 +88,6 @@
                 android:gravity="start"
                 android:padding="10dp"
                 android:paddingStart="10dp"
-                android:text="TextView"
                 android:textColor="@color/white"
                 card_view:layout_constraintStart_toStartOf="@+id/receipt_creation_dateH"
                 card_view:layout_constraintTop_toBottomOf="@+id/receipt_creation_dateH" />
@@ -116,7 +114,6 @@
                 android:gravity="start"
                 android:padding="10dp"
                 android:paddingStart="10dp"
-                android:text="TextView"
                 android:textColor="@color/white"
                 card_view:layout_constraintStart_toStartOf="@+id/receipt_priceH"
                 card_view:layout_constraintTop_toBottomOf="@+id/receipt_priceH" />

@@ -25,7 +25,6 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Produkty doma"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#D9D9D9"
                 android:textColor="#656565"

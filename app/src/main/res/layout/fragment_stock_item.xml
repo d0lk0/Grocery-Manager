@@ -29,7 +29,6 @@
                 android:fontFamily="@font/montserrat"
                 android:textColor="#656565"
                 android:textSize="20sp"
-                android:text="Text Text Text Text"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
