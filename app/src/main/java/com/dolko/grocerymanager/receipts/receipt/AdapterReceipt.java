@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.activity.AddActivity;
 import com.dolko.grocerymanager.database.DatabaseInStock;
-import com.dolko.grocerymanager.database.FetchData;
+import com.dolko.grocerymanager.FetchData;
 
 public class AdapterReceipt extends RecyclerView.Adapter<ItemViewHolderReceipt> {
 

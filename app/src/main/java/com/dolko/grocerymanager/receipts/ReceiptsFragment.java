@@ -1,5 +1,7 @@
 package com.dolko.grocerymanager.receipts;
 
+import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,7 +12,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +24,6 @@ public class ReceiptsFragment extends Fragment {
     DatabaseReceipts databaseReceipts;
     public AdapterReceipts adapter;
     static ArrayList<String[]> items = new ArrayList<>();
-
     RecyclerView recyclerView;
 
     @Nullable
@@ -57,9 +57,11 @@ public class ReceiptsFragment extends Fragment {
 
         data.close();
 
+        databaseReceipts.close();
+
         view.setOnKeyListener((v, keyCode, event) -> {
             if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                requireActivity().getSupportFragmentManager().popBackStack(null, POP_BACK_STACK_INCLUSIVE);
                 return true;
             }
             return false;

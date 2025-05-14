@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.activity.CaptActivity;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
-import com.dolko.grocerymanager.database.FetchData;
+import com.dolko.grocerymanager.FetchData;
 import com.dolko.grocerymanager.receipts.receipt.Receipt;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;

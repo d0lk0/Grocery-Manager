@@ -1,6 +1,5 @@
 package com.dolko.grocerymanager.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,34 +11,75 @@ public class DatabaseInStock extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "stored_items";
     private static final String COL1 = "name";
     private static final String COL2 = "quantity";
-    private static final String COL3= "unit"; //ks, bal, kg
+    private static final String COL3= "unit_id";
     private static final String COL4 = "exp_date";
     private static final String COL5 = "buy_date";
-    private static final String COL6 = "category"; //ovocie, zelenina, mäso, mliečne výrobky, atď.
+    private static final String COL6 = "category_id"; //ovocie, zelenina, mäso, mliečne výrobky, atď.
     private static final String COL7 = "description";
 
     public DatabaseInStock(Context context) {
-        super(context, TABLE_NAME, null, 2);
+        super(context, TABLE_NAME, null, 3);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + "(\n" +
-                "\t`id` integer PRIMARY KEY AUTOINCREMENT,\n" +
-                "\t" + COL1 + " text NULL DEFAULT NULL,\n" +
-                "\t" + COL2 + " integer DEFAULT 1,\n" +
-                "\t" + COL3 + " text NULL DEFAULT NULL,\n" +
-                "\t" + COL4 + " DATETIME NULL DEFAULT NULL,\n" +
-                "\t" + COL5 + " DATETIME NULL DEFAULT NULL,\n" +
-                "\t" + COL6 + " text NULL DEFAULT NULL,\n"+
-                "\t" + COL7 + " text NULL DEFAULT NULL);";
+        String createTable = "CREATE TABLE " + TABLE_NAME +
+                "(id integer PRIMARY KEY AUTOINCREMENT, " +
+                COL1 + " text NULL DEFAULT NULL, " +
+                COL2 + " integer DEFAULT 1, " +
+                COL3 + " INTEGER, " +
+                COL4 + " DATETIME NULL DEFAULT NULL, " +
+                COL5 + " DATETIME NULL DEFAULT NULL, " +
+                COL6 + " INTEGER, "+
+                COL7 + " text NULL DEFAULT NULL, " +
+                "FOREIGN KEY (category_id) REFERENCES categories(category_id), " +
+                "FOREIGN KEY (unit_id) REFERENCES units(unit_id));";
+        db.execSQL(createTable);
+
+        createTable = "CREATE TABLE categories (category_id INTEGER PRIMARY KEY, category_name TEXT);";
+        db.execSQL(createTable);
+        createTable = "CREATE TABLE units (unit_id INTEGER PRIMARY KEY, unit_name TEXT);";
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int factory, int version) {
-        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";" +
+                   "DROP TABLE IF EXISTS categories;" +
+                   "DROP TABLE IF EXISTS units;");
         onCreate(db);
+    }
+
+    public void insertCategory(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO categories (category_name) VALUES ('" +  name + "');";
+        db.execSQL(query);
+    }
+
+    public Cursor getCategories(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM categories;";
+        return db.rawQuery(query, null);
+    }
+
+    public void removeCategory(String category){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM stored_items WHERE category_id = (SELECT category_id FROM categories WHERE category_name = '" + category + "')";
+        db.execSQL(query);
+        query = "DELETE FROM categories WHERE category_name = '" + category + "';";
+        db.execSQL(query);
+    }
+
+    public void insertUnit(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO units (unit_name) VALUES ('" +  name + "');";
+        db.execSQL(query);
+    }
+
+    public Cursor getUnits(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM units;";
+        return db.rawQuery(query, null);
     }
 
     public Cursor getAllItems(){
@@ -48,32 +88,38 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public boolean addData(String name, String category, int quantity) {
+    public Cursor getLimitedData(int limit){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COL1, name);
-        Log.d(TAG, "addData: Adding " + category + " to " + TABLE_NAME);
-
-        contentValues.put(COL6, category);
-        Log.d(TAG, "addData: Adding " + category + " to " + TABLE_NAME);
-
-        contentValues.put(COL2, quantity);
-        Log.d(TAG, "addData: Adding " + quantity + " to " + TABLE_NAME);
-
-        long result = db.insert(TABLE_NAME, null, contentValues);
-        return result != -1;
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL4 + " ASC" + " LIMIT " + limit;
+        return db.rawQuery(query, null);
     }
 
-    public void updateItem(String name, int quantity) {
+    public void addData(String name, String category, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE " + TABLE_NAME + " SET " + COL2 + " = '" + quantity + "' WHERE " + COL1 + " = '" + name + "';";
+        String query = "INSERT INTO " + TABLE_NAME + " (name, quantity, unit_id, category_id) " +
+                "VALUES ('" + name + "', " + quantity + ", (SELECT unit_id FROM units WHERE unit_name = 'Ks'), (SELECT category_id FROM categories WHERE category_name = '" + category + "'));";
+        Log.d("insert", query);
         db.execSQL(query);
+    }
+
+    public void updateItemQuantity(int id, int quantity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.e("Update_Quantity " , id  + " " + quantity);
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + COL2 + " = '" + quantity + "' WHERE id=\"" + id + "\"");
+    }
+
+    public void updateItemName(int id, String new_name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.e("Update_Name " , "Renamed : " + id + " to : " + new_name);
+        db.execSQL("UPDATE " + TABLE_NAME + " SET " + COL1 + " = '" + new_name + "' WHERE id=\"" + id + "\";");
     }
 
     public Cursor getCategoryItems(String category){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL6 + " = '" + category + "'";
+
+        String query = "SELECT id, stored_items.name, stored_items.quantity FROM " + TABLE_NAME +
+                       " JOIN categories ON stored_items.category_id = categories.category_id " +
+                       "WHERE categories.category_name = '" + category + "';";
         return db.rawQuery(query, null);
     }
 
@@ -93,36 +139,19 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public boolean addReceipt(String name, String quantity, String unit, String exp_date, String buy_date, String category, String description) {
+    public void addItem(String name, String quantity, String unit, String exp_date, String buy_date, String category, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COL1, name);
-        contentValues.put(COL2, quantity);
-        contentValues.put(COL3, unit);
-        contentValues.put(COL4, exp_date);
-        contentValues.put(COL5, buy_date);
-        contentValues.put(COL6, category);
-        contentValues.put(COL7, description);
-
-        Log.d(TAG, "addData: Adding " + name + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + quantity + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + unit + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + exp_date + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + buy_date + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + category + " to " + TABLE_NAME);
-        Log.d(TAG, "addData: Adding " + description + " to " + TABLE_NAME);
-
-        long result = db.insert(TABLE_NAME, null, contentValues);
-        return result != -1;
+        String query = "INSERT INTO " + TABLE_NAME + " (name, quantity, unit_id, exp_date, buy_date, category_id, description) " +
+                "VALUES ('" + name + "', " + quantity + ", " +
+                "(SELECT unit_id FROM units WHERE unit_name = 'Ks'), '" + exp_date + "', '" + buy_date + "', " +
+                "(SELECT category_id FROM categories WHERE category_name = '" + category + "'), '" + description+ "');";
+        Log.d("insertItem", query);
+        db.execSQL(query);
     }
 
-    public void deleteItem(String name, String unit, String exp_date, String buy_date, String category){
+    public void deleteItem(String id, String name){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "DELETE FROM " + TABLE_NAME +
-                " WHERE " + COL1 + " = '" + name + "'" + " AND " + COL2 + " = '" + unit + "'";
-
-        //Log.d(TAG, "deleteReceipt: Deleting " + receiptId + " with date: " + date + " from database.");
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COL1 + " = '" + name + "'" + " AND " + "id" + " = " + id;
         db.execSQL(query);
     }
 
@@ -132,6 +161,19 @@ public class DatabaseInStock extends SQLiteOpenHelper {
     }
 
     public void insertContent(){
+        deleteContent();
+
+        insertUnit("Ks");
+
+        insertCategory("Pečivo");
+        insertCategory("Mäsové výrobky");
+        insertCategory("Ovocie a Zelenia");
+        insertCategory("Mrazené výrobky");
+        insertCategory("Cestoviny");
+        insertCategory("Mliečne výrobky");
+        insertCategory("Trvanlivé potraviny");
+        insertCategory("Nápoje");
+
         addData("Chlieb","Pečivo", 0);
         addData("Rohlík","Pečivo", 0);
         addData("Bageta","Pečivo", 0);

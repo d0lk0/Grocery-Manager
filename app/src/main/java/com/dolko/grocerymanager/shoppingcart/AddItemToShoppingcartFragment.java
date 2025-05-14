@@ -1,7 +1,6 @@
 package com.dolko.grocerymanager.shoppingcart;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,27 +39,25 @@ public class AddItemToShoppingcartFragment extends Fragment {
         FloatingActionButton confirm = view.findViewById(R.id.add_item_confirm_button);
 
         close.setOnClickListener(e -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ShoppingcartFragment()).commit();
+            requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         });
 
         confirm.setOnClickListener(e -> {
             if(!name.getText().toString().isEmpty() && !quantity.getText().toString().isEmpty()){
-                databaseShoppingCart.addData(name.getText().toString(), quantity.getText().toString());
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new ShoppingcartFragment()).commit();
+                databaseShoppingCart.addData(name.getText().toString(), quantity.getText().toString(), 0);
+                requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } else {
                 Toast.makeText(getContext(), "Zadané chybné údaje!", Toast.LENGTH_LONG).show();
             }
         });
 
-        view.setOnKeyListener((v, keyCode, event) -> {
+        /*view.setOnKeyListener((v, keyCode, event) -> {
             if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
                 requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 return true;
             }
             return false;
-        });
+        });*/
     }
 
 }

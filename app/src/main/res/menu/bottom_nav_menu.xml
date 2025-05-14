@@ -20,6 +20,6 @@
         android:title="Zoznam" />
 
     <item android:id="@+id/mStockAtHome"
-        android:title="Doma"
+        android:title="Zásoby"
         android:icon="@mipmap/icon_stock" />
 </menu>

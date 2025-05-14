@@ -1,4 +1,4 @@
-package com.dolko.grocerymanager.database;
+package com.dolko.grocerymanager;
 
 
 import android.util.Log;

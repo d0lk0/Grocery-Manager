@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
-import com.dolko.grocerymanager.database.FetchData;
+import com.dolko.grocerymanager.FetchData;
 import com.dolko.grocerymanager.receipts.ReceiptsFragment;
 
 public class Receipt extends Fragment {

@@ -18,6 +18,7 @@ public class SettingsFragment extends Fragment {
 
     DatabaseShoppingCart databaseShoppingCart;
     DatabaseReceipts databaseReceipts;
+    ShoppingcartFragment shoppingcartFragment;
 
     @Nullable
     @Override
@@ -26,6 +27,7 @@ public class SettingsFragment extends Fragment {
 
         databaseShoppingCart = new DatabaseShoppingCart(getContext());
         databaseReceipts = new DatabaseReceipts(getContext());
+        shoppingcartFragment = (ShoppingcartFragment) getParentFragmentManager().findFragmentById(R.id.fragment_container);
 
         Button btn_insert = view.findViewById(R.id.insert_items);
         Button btn_delete = view.findViewById(R.id.delete_items);
@@ -36,7 +38,7 @@ public class SettingsFragment extends Fragment {
 
         btn_delete.setOnClickListener(e -> {
             databaseShoppingCart.deleteDBContent();
-            ShoppingcartFragment.items.clear();
+            if (shoppingcartFragment != null) shoppingcartFragment.reloadData();
         });
 
         return view;

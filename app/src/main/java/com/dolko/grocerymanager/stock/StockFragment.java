@@ -1,19 +1,25 @@
 package com.dolko.grocerymanager.stock;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
+import com.dolko.grocerymanager.activity.AddActivity;
 import com.dolko.grocerymanager.database.DatabaseInStock;
 
 import java.util.ArrayList;
@@ -26,7 +32,7 @@ public class StockFragment extends Fragment {
     private AdapterStock adapter;
     private DatabaseInStock databaseInStock;
 
-    private String[] titles = {"Pečivo", "Mäsové výrobky", "Ovocie a Zelenia", "Mrazené výrobky", "Cestoviny", "Mliečne výrobky", "Trvanlivé potraviny", "Nápoje"};
+    Button b_add_item, b_add_category;
 
     @Nullable
     @Override
@@ -40,22 +46,65 @@ public class StockFragment extends Fragment {
 
         databaseInStock = new DatabaseInStock(getContext());
 
+        b_add_item = view.findViewById(R.id.addItem);
+        b_add_category = view.findViewById(R.id.addCategory);
+
+        b_add_item.setOnClickListener(v -> {
+            Intent intent = new Intent(view.getContext(), AddActivity.class);
+            startActivity(intent);
+        });
+
+        b_add_category.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle("Pridanie kategórie");
+            View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.text_input_popup, (ViewGroup) getView(), false);
+            final EditText input = viewInflated.findViewById(R.id.input);
+            builder.setView(viewInflated);
+
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                if(!input.getText().toString().isEmpty()) {
+                    dialog.dismiss();
+                    databaseInStock.insertCategory(input.getText().toString());
+                    Toast.makeText(getContext(), "Úspešne pridaná kategória: " + input.getText().toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Nie je možné pridať kategóriu", Toast.LENGTH_LONG).show();
+                }
+
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction().replace(R.id.fragment_container, new StockFragment()).commit();
+
+            });
+            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+            builder.show();
+        });
+
         recyclerView = view.findViewById(R.id.recycler_view_stock);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         items = new ArrayList<>();
 
+        List<String> categories = new ArrayList<>();
+
+        Cursor getCategories = databaseInStock.getCategories();
+        if(getCategories.moveToFirst()){
+            while(getCategories.moveToNext()) {
+                categories.add(getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));
+                Log.d("category", getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));
+            }
+        }
+
         List<String[]> temp_s = new ArrayList<>();
 
-        for(String title : titles){
+        for(String title : categories){
             Cursor data = databaseInStock.getCategoryItems(title);
             String[] tmp;
 
             while (data.moveToNext()) {
-                tmp = new String[2];
-                tmp[0] = data.getString(data.getColumnIndexOrThrow("name"));
-                tmp[1] = data.getString(data.getColumnIndexOrThrow("quantity"));
+                tmp = new String[3];
+                tmp[0] = data.getString(data.getColumnIndexOrThrow("id"));
+                tmp[1] = data.getString(data.getColumnIndexOrThrow("name"));
+                tmp[2] = data.getString(data.getColumnIndexOrThrow("quantity"));
                 temp_s.add(tmp);
                 Log.e("items", Arrays.toString(tmp));
             }
@@ -65,78 +114,10 @@ public class StockFragment extends Fragment {
             temp_s = new ArrayList<>();
         }
 
-
-        /*List<String> nestedList1 = new ArrayList<>();
-        nestedList1.add("Chlieb");
-        nestedList1.add("Rohlík");
-        nestedList1.add("Bageta");
-        nestedList1.add("Kaiserka");
-        nestedList1.add("Croissant");
-        nestedList1.add("Donut");
-        nestedList1.add("Tortila");
-
-        List<String> nestedList2 = new ArrayList<>();
-        nestedList2.add("Hydina");
-        nestedList2.add("Bravčové");
-        nestedList2.add("Hovädzie");
-        nestedList2.add("Párky");
-        nestedList2.add("Klobásy");
-        nestedList2.add("Salámy");
-        nestedList2.add("Paštety");
-        nestedList2.add("Ryby");
-
-        List<String> nestedList3 = new ArrayList<>();
-        nestedList3.add("Jablko");
-        nestedList3.add("Hruška");
-        nestedList3.add("Hrozno");
-        nestedList3.add("Jahody");
-        nestedList3.add("Melón");
-        nestedList3.add("Mrkva");
-        nestedList3.add("Mandarinka");
-        nestedList3.add("Kapusta");
-
-        List<String> nestedList4 = new ArrayList<>();
-        nestedList4.add("Pizza");
-        nestedList4.add("Ryby");
-        nestedList4.add("Zmrzlina");
-        nestedList4.add("Ľad");
-        nestedList4.add("Zemiakové výrobky");
-
-        List<String> nestedList5 = new ArrayList<>();
-        nestedList5.add("Vaječné");
-
-        List<String> nestedList6 = new ArrayList<>();
-        nestedList6.add("Maslo");
-        nestedList6.add("Nátierka");
-        nestedList6.add("Syr");
-        nestedList6.add("Vajcia");
-        nestedList6.add("Jogurty");
-        nestedList6.add("Smotana");
-
-        List<String> nestedList7 = new ArrayList<>();
-        nestedList7.add("Bazový sirup");
-        nestedList7.add("Kokosový koktejl");
-        nestedList7.add("Mysli sypané");
-
-        List<String> nestedList8 = new ArrayList<>();
-        nestedList8.add("Kofola");
-        nestedList8.add("Pepsi");
-        nestedList8.add("Coca-Cola");
-        nestedList8.add("Vinea");
-        nestedList8.add("Fanta");
-
-        items.add(new DataModelStock(, "Pečivo"));
-        items.add(new DataModelStock(nestedList2, "Mäsové výrobky"));
-        items.add(new DataModelStock(nestedList3, "Ovocie a Zelenia"));
-        items.add(new DataModelStock(nestedList4, "Mrazené výrobky"));
-        items.add(new DataModelStock(nestedList5, "Cestoviny"));
-        items.add(new DataModelStock(nestedList6, "Mliečne výrobky"));
-        items.add(new DataModelStock(nestedList7, "Trvanlivé potraviny"));
-        items.add(new DataModelStock(nestedList8, "Nápoje"));*/
-
-
         adapter = new AdapterStock(items);
         recyclerView.setAdapter(adapter);
     }
+
+
 
 }

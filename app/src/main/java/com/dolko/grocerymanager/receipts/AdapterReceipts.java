@@ -18,12 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
-import com.dolko.grocerymanager.database.FetchData;
+import com.dolko.grocerymanager.FetchData;
 import com.dolko.grocerymanager.receipts.receipt.Receipt;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts> {
@@ -70,7 +71,7 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
             });
 
             dialog.show();
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.getWindow().setGravity(Gravity.BOTTOM);
         });

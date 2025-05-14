@@ -20,11 +20,14 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
+import com.dolko.grocerymanager.database.DatabaseInStock;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.NestedViewHolderStock>{
     private List<String[]> mList;
+    DatabaseInStock databaseInStock;
 
     public NestedAdapterStock(List<String[]> mList){
         this.mList = mList;
@@ -34,13 +37,14 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
     @Override
     public NestedViewHolderStock onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nested_stock , parent , false);
+        databaseInStock = new DatabaseInStock(parent.getContext());
         return new NestedViewHolderStock(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NestedViewHolderStock holder, int position) {
-        holder.name.setText(mList.get(position)[0]);
-        holder.quantity.setText(String.format("%s ks", mList.get(position)[1]));
+        holder.name.setText(mList.get(position)[1]);
+        holder.quantity.setText(String.format("%s ks", mList.get(position)[2]));
 
         holder.more.setOnClickListener(view ->{
             final Dialog dialog = new Dialog(view.getContext());
@@ -48,19 +52,27 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
             dialog.setContentView(R.layout.bottom_sheet_layout);
 
             LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
-            dialog.findViewById(R.id.layoutDelete).setVisibility(View.GONE);
+            LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
 
             editLayout.setOnClickListener(v -> {
                 EditItemFragment fragment = new EditItemFragment();
                 Bundle args = new Bundle();
-                args.putString("name", mList.get(position)[0]);
+                args.putString("id", mList.get(position)[0]);
+                args.putString("name", mList.get(position)[1]);
+                args.putString("quantity", mList.get(position)[2]);
                 fragment.setArguments(args);
                 ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
                 dialog.dismiss();
             });
 
+            deleteLayout.setOnClickListener(v -> {
+                databaseInStock.deleteItem(mList.get(position)[0], mList.get(position)[1]); //"id", "name"
+                removeItem(position);
+                dialog.dismiss();
+            });
+
             dialog.show();
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.getWindow().setGravity(Gravity.BOTTOM);
         });
@@ -78,7 +90,7 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
         notifyItemRangeChanged(position, mList.size());
     }
 
-    public class NestedViewHolderStock extends RecyclerView.ViewHolder{
+    public static class NestedViewHolderStock extends RecyclerView.ViewHolder{
         private TextView name, quantity;
         private ImageView image;
         private ImageButton more;

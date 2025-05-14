@@ -32,7 +32,7 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int factory, int version) {
-        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
@@ -111,28 +111,11 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
     }
 
     public void insertContent(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO " + TABLE_NAME + "VALUES\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"V-766D712F48DB4C36AD712F48DBCC366A\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"O-AC6D5656CDC64336AD5656CDC60336E0\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"O-AC6D5656CDC64336AD5656CDC60336E0\"),\n" +
-                "(\"V-766D712F48DB4C36AD712F48DBCC366A\"),\n" +
-                "(\"O-AC6D5656CDC64336AD5656CDC60336E0\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"O-AC6D5656CDC64336AD5656CDC60336E0\"),\n" +
-                "(\"O-AC6D5656CDC64336AD5656CDC60336E0\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\"),\n" +
-                "(\"V-766D712F48DB4C36AD712F48DBCC366A\"),\n" +
-                "(\"O-AC6D5656CDC64336AD5656CDC60336E0\"),\n" +
-                "(\"V-766D712F48DB4C36AD712F48DBCC366A\"),\n" +
-                "(\"V-766D712F48DB4C36AD712F48DBCC366A\"),\n" +
-                "(\"O-41ACDB5025954A58ACDB5025954A586E\");";
-        db.execSQL(query);
+        deleteContent();
+
+        addReceipt("O-41ACDB5025954A58ACDB5025954A586E", "", "", "");
+        addReceipt("V-766D712F48DB4C36AD712F48DBCC366A", "", "", "");
+        addReceipt("O-AC6D5656CDC64336AD5656CDC60336E0", "", "", "");
+
     }
 }

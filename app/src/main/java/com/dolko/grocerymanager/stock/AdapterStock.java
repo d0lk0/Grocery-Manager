@@ -1,5 +1,7 @@
 package com.dolko.grocerymanager.stock;
 
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dolko.grocerymanager.R;
+import com.dolko.grocerymanager.database.DatabaseInStock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +25,16 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.AdapterStock
 
     private List<DataModelStock> mList;
     private List<String[]> list = new ArrayList<>();
-
     public AdapterStock(List<DataModelStock> mList){
         this.mList  = mList;
     }
+    DatabaseInStock databaseInStock;
 
     @NonNull
     @Override
     public AdapterStockHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stock , parent , false);
+        databaseInStock = new DatabaseInStock(parent.getContext());
         return new AdapterStockHolder(view);
     }
 
@@ -56,6 +61,36 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.AdapterStock
             list = model.getNestedList();
             notifyItemChanged(holder.getAdapterPosition());
         });
+        holder.linearLayout.setOnLongClickListener(v -> {
+            Log.e("hold pos", String.valueOf(holder.getAdapterPosition()));
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Log.d("pos", holder.mTextView.getText().toString());
+                        databaseInStock.removeCategory(holder.mTextView.getText().toString());
+                        removeItem(holder.getAdapterPosition());
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setMessage("Naozaj chcete vymazať túto kategóriu?")
+                    .setPositiveButton("Áno", dialogClickListener)
+                    .setNegativeButton("Nie", dialogClickListener)
+                    .show();
+
+            return false;
+        });
+    }
+
+    public void removeItem(int position) {
+        mList.remove(position);
+        Log.e("pos", String.valueOf(position));
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mList.size());
     }
 
     @Override
