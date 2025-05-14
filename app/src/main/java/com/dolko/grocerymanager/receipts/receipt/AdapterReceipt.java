@@ -37,7 +37,7 @@ public class AdapterReceipt extends RecyclerView.Adapter<ItemViewHolderReceipt> 
             myIntent.putExtra("date", (FetchData.detail[1]).replace("." ,"-"));
             view.getContext().startActivity(myIntent);
         });
-    };
+    }
 
     @Override
     public int getItemCount() {
