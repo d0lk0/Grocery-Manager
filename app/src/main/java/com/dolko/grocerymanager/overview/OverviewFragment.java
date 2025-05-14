@@ -80,6 +80,8 @@ public class OverviewFragment extends Fragment {
         cart.close();
         databaseShoppingCart.close();
 
+        //TODO: Pridať zobrazovanie aj datumu a počet kusov
+
         databaseInStock = new DatabaseInStock(getContext());
         Cursor stock = databaseInStock.getLimitedData(3);
         i = 0;

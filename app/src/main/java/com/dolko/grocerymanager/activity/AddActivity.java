@@ -72,12 +72,15 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
         List<String> categories = new ArrayList<>();
 
         Cursor getCategories = databaseInStock.getCategories();
-        if(getCategories.moveToFirst()){
-            while(getCategories.moveToNext()) {
+        if (getCategories.moveToFirst()) {
+            do {
                 categories.add(getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));
                 Log.d("category", getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));
-            }
+            } while (getCategories.moveToNext());
+        } else {
+            Log.e("category", "No categories found in database.");
         }
+        getCategories.close();
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -91,11 +94,11 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
         });
 
         confirm.setOnClickListener(e -> {
-            if(!Pattern.matches("(\\d{2})-(\\d{2})-(\\d{4})", exp_date.getText())) {
-                Toast.makeText(getApplicationContext(), "Zlý formát dátumu expiracie (dd-mm-YYYY)", Toast.LENGTH_LONG).show();
+            if(!Pattern.matches("^(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[0-2])\\.(19|20)\\d{2}$", exp_date.getText())) {
+                Toast.makeText(getApplicationContext(), "Zlý formát dátumu expiracie (dd.mm.YYYY)", Toast.LENGTH_LONG).show();
                 return;
-            } else if (!Pattern.matches("(\\d{2})-(\\d{2})-(\\d{4}) (\\d{2}):(\\d{2}):(\\d{2})", buy_date.getText())){
-                Toast.makeText(getApplicationContext(), "Zlý formát dátumu nákupu (dd-mm-YYYY hh:mm:ss)", Toast.LENGTH_LONG).show();
+            } else if (!Pattern.matches("^(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[0-2])\\.(19|20)\\d{2}$", buy_date.getText())){ //(\d{2}).(\d{2}).(\d{4}) (\d{2}):(\d{2}):(\d{2})
+                Toast.makeText(getApplicationContext(), "Zlý formát dátumu nákupu (dd.mm.YYYY hh:mm:ss)", Toast.LENGTH_LONG).show();
                 return;
             } else if (quantity.getText().equals("") && !Pattern.matches("(\\d)", quantity.getText())){
                 Toast.makeText(getApplicationContext(), "Zlý počet kusov", Toast.LENGTH_LONG).show();

@@ -87,12 +87,15 @@ public class StockFragment extends Fragment {
         List<String> categories = new ArrayList<>();
 
         Cursor getCategories = databaseInStock.getCategories();
-        if(getCategories.moveToFirst()){
-            while(getCategories.moveToNext()) {
+        if (getCategories.moveToFirst()) {
+            do {
                 categories.add(getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));
                 Log.d("category", getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));
-            }
+            } while (getCategories.moveToNext());
+        } else {
+            Log.e("category", "No categories found in database.");
         }
+        getCategories.close();
 
         List<String[]> temp_s = new ArrayList<>();
 

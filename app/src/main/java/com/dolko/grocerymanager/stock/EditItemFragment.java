@@ -45,6 +45,8 @@ public class EditItemFragment extends Fragment {
         Bundle args = getArguments();
         assert args != null;
 
+        //TODO: Treba pridať všetky informacie aku su pri add_item, tak aby sa dalo ediťovať všetko
+
         editName.setText(args.getString("name"));
         editQuantity.setText(args.getString("quantity"));
 

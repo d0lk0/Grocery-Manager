@@ -163,6 +163,7 @@ public class DatabaseInStock extends SQLiteOpenHelper {
     public void insertContent(){
         deleteContent();
 
+        insertUnit("(Žiadna)");
         insertUnit("Ks");
 
         insertCategory("Pečivo");
