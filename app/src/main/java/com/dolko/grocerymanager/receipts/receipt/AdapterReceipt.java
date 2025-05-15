@@ -34,7 +34,7 @@ public class AdapterReceipt extends RecyclerView.Adapter<ItemViewHolderReceipt> 
         holder.add_item.setOnClickListener(view ->{
             Intent myIntent = new Intent(view.getContext(), AddActivity.class);
             myIntent.putExtra("name", FetchData.items.get(position));
-            myIntent.putExtra("date", (FetchData.detail[1]).replace("." ,"-"));
+            myIntent.putExtra("date", (FetchData.detail[1]));
             view.getContext().startActivity(myIntent);
         });
     }

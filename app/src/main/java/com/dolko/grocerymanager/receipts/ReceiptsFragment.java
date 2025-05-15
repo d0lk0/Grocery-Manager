@@ -4,6 +4,7 @@ import static androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dolko.grocerymanager.FetchData;
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReceiptsFragment extends Fragment {
@@ -50,7 +55,7 @@ public class ReceiptsFragment extends Fragment {
             String[] tmp = new String[4];
             tmp[0] = data.getString(data.getColumnIndexOrThrow("name"));
             tmp[1] = data.getString(data.getColumnIndexOrThrow("add_date"));
-            tmp[2] = data.getString(data.getColumnIndexOrThrow("price"));
+            tmp[2] = data.getString(data.getColumnIndexOrThrow("price")) +"€";
             tmp[3] = data.getString(data.getColumnIndexOrThrow("receipt_id"));
             items.add(tmp);
         }

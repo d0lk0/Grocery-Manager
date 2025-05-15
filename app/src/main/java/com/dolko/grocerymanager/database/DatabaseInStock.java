@@ -88,9 +88,9 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public Cursor getLimitedData(int limit){
+    public Cursor getTimeLimited(int limit){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL4 + " ASC" + " LIMIT " + limit;
+        String query = "SELECT name, quantity, exp_date  FROM " + TABLE_NAME + " WHERE exp_date not NULL ORDER BY " + COL4 + " ASC" + " LIMIT " + limit;
         return db.rawQuery(query, null);
     }
 
@@ -157,7 +157,10 @@ public class DatabaseInStock extends SQLiteOpenHelper {
 
     public void deleteContent(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME);
+        db.execSQL("DELETE FROM " + TABLE_NAME +";");
+        db.execSQL("DELETE FROM " + "categories" +";");
+        db.execSQL("DELETE FROM " + "units" +";");
+
     }
 
     public void insertContent(){

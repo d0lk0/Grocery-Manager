@@ -27,6 +27,7 @@ public class OverviewFragment extends Fragment {
     TextView shop1, shop2, shop3;
     TextView shopping1, shopping2, shopping3;
     TextView expire1, expire2, expire3;
+    TextView expire1Date,expire2Date,expire3Date;
 
     Button debug;
 
@@ -44,6 +45,10 @@ public class OverviewFragment extends Fragment {
         expire1 = view.findViewById(R.id.nearest_to_expire_1);
         expire2 = view.findViewById(R.id.nearest_to_expire_2);
         expire3 = view.findViewById(R.id.nearest_to_expire_3);
+
+        expire1Date = view.findViewById(R.id.nearest_to_expire_1_date);
+        expire2Date = view.findViewById(R.id.nearest_to_expire_2_date);
+        expire3Date = view.findViewById(R.id.nearest_to_expire_3_date);
 
         debug = view.findViewById(R.id.debug);
 
@@ -80,16 +85,26 @@ public class OverviewFragment extends Fragment {
         cart.close();
         databaseShoppingCart.close();
 
-        //TODO: Pridať zobrazovanie aj datumu a počet kusov
+        //TODO: Pridať zobrazovanie počet kusov
 
         databaseInStock = new DatabaseInStock(getContext());
-        Cursor stock = databaseInStock.getLimitedData(3);
+        Cursor stock = databaseInStock.getTimeLimited(3);
         i = 0;
         while(stock.moveToNext()) {
             Log.e("stock", String.valueOf(stock.getString(stock.getColumnIndexOrThrow("name"))));
-            if(i == 0) expire1.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
-            else if (i == 1) expire2.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
-            else if (i == 2) expire3.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
+            if(i == 0) {
+                expire1.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
+                expire1Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+            }
+            else if (i == 1) {
+                expire2.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
+                expire2Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+
+            }
+            else if (i == 2) {
+                expire3.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
+                expire3Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+            }
             ++i;
         }
         stock.close();
@@ -97,8 +112,8 @@ public class OverviewFragment extends Fragment {
 
         debug.setOnClickListener(v -> {
             databaseInStock.insertContent();
-            //databaseReceipts.insertContent();
-            databaseShoppingCart.insertDBContent();
+            databaseReceipts.insertContent();
+            databaseShoppingCart.insertContent();
         });
     }
 }

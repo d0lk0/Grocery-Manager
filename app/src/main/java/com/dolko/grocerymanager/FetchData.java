@@ -64,7 +64,7 @@ public class FetchData  {
             try {
                 detail[0] = receiptContent.getJSONObject("receipt").getJSONObject("organization").getString("name");
                 detail[1] = receiptContent.getJSONObject("receipt").getString("createDate");
-                detail[2] = receiptContent.getJSONObject("receipt").getString("totalPrice") + "€";
+                detail[2] = receiptContent.getJSONObject("receipt").getString("totalPrice");
                 detail[3] = receiptContent.getJSONObject("receipt").getString("receiptId");
 
                 JSONArray itemsArray = receiptContent.getJSONObject("receipt").getJSONArray("items");

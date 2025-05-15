@@ -1,11 +1,13 @@
 package com.dolko.grocerymanager.receipts.receipt;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
 import com.dolko.grocerymanager.FetchData;
 import com.dolko.grocerymanager.receipts.ReceiptsFragment;
+
+import org.json.JSONException;
 
 public class Receipt extends Fragment {
 
@@ -37,7 +41,7 @@ public class Receipt extends Fragment {
         save = view.findViewById(R.id.button_save_receipt);
 
         save.setOnClickListener(e ->{
-            databaseReceipts.addReceipt(FetchData.detail[3], (FetchData.detail[1]).replace("." ,"-"), FetchData.detail[2], FetchData.detail[0]);
+            databaseReceipts.addReceipt(FetchData.detail[3], (FetchData.detail[1]), FetchData.detail[2], FetchData.detail[0]);
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceiptsFragment()).commit();
         });
 
@@ -60,6 +64,20 @@ public class Receipt extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
+        Cursor data = databaseReceipts.getReceipt(FetchData.detail[3]);
+        if(data.getCount() > 0){
+            data.moveToFirst();
+            Log.d("data count", String.valueOf(data.getCount()));
+            if(data.getString(data.getColumnIndexOrThrow("name")).isEmpty() || data.getString(data.getColumnIndexOrThrow("add_date")).isEmpty() || data.getString(data.getColumnIndexOrThrow("price")).isEmpty())
+                databaseReceipts.updateReceipt(FetchData.detail[1],
+                        FetchData.detail[2],
+                        FetchData.detail[0],
+                        FetchData.detail[3]);
+        }
+
+
+        data.close();
 
         name.setText(FetchData.detail[0]);
         date.setText(FetchData.detail[1]);

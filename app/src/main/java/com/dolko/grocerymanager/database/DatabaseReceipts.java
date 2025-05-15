@@ -42,6 +42,12 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
+    public Cursor getReceipt(String receipt_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL1 + " = '" + receipt_id + "'";
+        return db.rawQuery(query, null);
+    }
+
     public Cursor getLimitedData(int limit){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COL2 + " DESC" + " LIMIT " + limit;
@@ -83,18 +89,16 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    /*
-    public void updateReceipt(int newCode, String newName, String newExpirationDate, int id, String oldName, String oldExpDate){
+    public void updateReceipt(String time, String price, String name, String receipt_id){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query =  "UPDATE " + TABLE_NAME +
-                " SET " + COL2 + " = " + newCode + " , " + COL3 + " = '" + newName + "' , " + COL4 + " = '" + newExpirationDate + "'" +
-                " WHERE " + COL2 + " = " + id + " AND " + COL3 + " = '" + oldName + "' AND " + COL4 + " = '" + oldExpDate + "'";
+                " SET " + COL2 + " = '" + time + "' , " + COL3 + " = '" + price + "' , " + COL4 + " = '" + name + "'" +
+                " WHERE " + COL1 + " = '" + receipt_id + "'";
 
         Log.d(TAG, "updateName: query: " + query);
-        Log.d(TAG, "updateName: Setting name to " + newName);
         db.execSQL(query);
-    }*/
+    }
 
     public void removeReceipt(String receiptId){
         SQLiteDatabase db = this.getWritableDatabase();

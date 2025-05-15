@@ -94,13 +94,13 @@ public class DatabaseShoppingCart extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public void deleteDBContent(){
+    public void deleteContent(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
     }
 
-    public void insertDBContent(){
-        deleteDBContent();
+    public void insertContent(){
+        deleteContent();
 
         addData("Syr","1", 0);
         addData("Kečup","2", 0);

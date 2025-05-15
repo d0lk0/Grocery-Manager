@@ -33,11 +33,11 @@ public class SettingsFragment extends Fragment {
         Button btn_delete = view.findViewById(R.id.delete_items);
 
         btn_insert.setOnClickListener(e -> {
-            databaseShoppingCart.insertDBContent();
+            databaseShoppingCart.insertContent();
         });
 
         btn_delete.setOnClickListener(e -> {
-            databaseShoppingCart.deleteDBContent();
+            databaseShoppingCart.deleteContent();
             if (shoppingcartFragment != null) shoppingcartFragment.reloadData();
         });
 
