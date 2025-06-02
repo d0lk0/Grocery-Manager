@@ -62,7 +62,7 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
 
         List<String> units = new ArrayList<>();
 
-        Cursor getUnits = databaseInStock.getUnits();
+        Cursor getUnits = databaseInStock.getAllUnits();
         if (getUnits.moveToFirst()) {
             do {
                 units.add(getUnits.getString(getUnits.getColumnIndexOrThrow("unit_name")));
@@ -79,7 +79,7 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
 
         List<String> categories = new ArrayList<>();
 
-        Cursor getCategories = databaseInStock.getCategories();
+        Cursor getCategories = databaseInStock.getAllCategories();
         if (getCategories.moveToFirst()) {
             do {
                 categories.add(getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));

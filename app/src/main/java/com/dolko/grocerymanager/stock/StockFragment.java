@@ -86,7 +86,7 @@ public class StockFragment extends Fragment {
 
         List<String> categories = new ArrayList<>();
 
-        Cursor getCategories = databaseInStock.getCategories();
+        Cursor getCategories = databaseInStock.getAllCategories();
         if (getCategories.moveToFirst()) {
             do {
                 categories.add(getCategories.getString(getCategories.getColumnIndexOrThrow("category_name")));

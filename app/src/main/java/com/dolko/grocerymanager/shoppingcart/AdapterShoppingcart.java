@@ -52,8 +52,8 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
         holder.item_h.setOnClickListener(view -> {
             int currentState = Integer.parseInt(items.get(position)[3]);
 
-            if(currentState == 0) {databaseShoppingCart.updateItemState(Integer.parseInt(items.get(position)[2]),
-                    holder.name.getText().toString(),1);
+            if(currentState == 0) {
+                databaseShoppingCart.updateItemState(Integer.parseInt(items.get(position)[2]),1);
 
                 items.get(position)[3] = "1";
 
@@ -66,11 +66,7 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
                 holder.count.getBackground().setAlpha(100);
                 holder.more.getBackground().setAlpha(100);
             } else {
-                databaseShoppingCart.updateItemState(
-                        Integer.parseInt(items.get(position)[2]),
-                        holder.name.getText().toString(),
-                        0
-                );
+                databaseShoppingCart.updateItemState(Integer.parseInt(items.get(position)[2]), 0);
 
                 items.get(position)[3] = "0";
 
@@ -95,9 +91,11 @@ public class AdapterShoppingcart extends RecyclerView.Adapter<ItemViewHolderShop
             dialog.setContentView(R.layout.bottom_sheet_layout);
             LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
             LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
+            LinearLayout infoLayout = dialog.findViewById(R.id.layoutInfo);
+            infoLayout.setVisibility(View.GONE);
 
             deleteLayout.setOnClickListener(v -> {
-                databaseShoppingCart.removeItem(item[2], item[0], item[1]);
+                databaseShoppingCart.removeItem(item[2]);
                 removeItem(position);
                 dialog.dismiss();
             });

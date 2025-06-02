@@ -67,7 +67,7 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.AdapterStock
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         Log.d("pos", holder.mTextView.getText().toString());
-                        databaseInStock.removeCategory(holder.mTextView.getText().toString());
+                        databaseInStock.deleteCategory(holder.mTextView.getText().toString());
                         removeItem(holder.getAdapterPosition());
                         break;
 

@@ -44,7 +44,7 @@ public class AddItemToShoppingcartFragment extends Fragment {
 
         confirm.setOnClickListener(e -> {
             if(!name.getText().toString().isEmpty() && !quantity.getText().toString().isEmpty()){
-                databaseShoppingCart.addData(name.getText().toString(), quantity.getText().toString(), 0);
+                databaseShoppingCart.addItem(name.getText().toString(), quantity.getText().toString(), 0);
                 requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } else {
                 Toast.makeText(getContext(), "Zadané chybné údaje!", Toast.LENGTH_LONG).show();
