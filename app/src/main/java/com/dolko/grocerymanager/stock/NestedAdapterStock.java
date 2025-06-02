@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseInStock;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.NestedViewHolderStock>{
     private List<String[]> mList;
@@ -46,6 +48,8 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
         holder.name.setText(mList.get(position)[1]);
         holder.quantity.setText(String.format("%s ks", mList.get(position)[2]));
 
+        Log.d("mList content", mList.stream().map(Arrays::toString).collect(Collectors.joining("\n")));
+
         holder.more.setOnClickListener(view ->{
             final Dialog dialog = new Dialog(view.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -53,6 +57,16 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
 
             LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
             LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
+            LinearLayout infoLayout = dialog.findViewById(R.id.layoutInfo);
+
+            infoLayout.setOnClickListener(v -> {
+                InfoItemFragment fragment = new InfoItemFragment();
+                Bundle args = new Bundle();
+                args.putString("id", mList.get(position)[0]);
+                fragment.setArguments(args);
+                ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
+                dialog.dismiss();
+            });
 
             editLayout.setOnClickListener(v -> {
                 EditItemFragment fragment = new EditItemFragment();

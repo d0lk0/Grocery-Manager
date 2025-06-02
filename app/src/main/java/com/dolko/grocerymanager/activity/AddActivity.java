@@ -61,9 +61,17 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
         }
 
         List<String> units = new ArrayList<>();
-        units.add("Kg");
-        units.add("Balenie");
-        units.add("Ks");
+
+        Cursor getUnits = databaseInStock.getUnits();
+        if (getUnits.moveToFirst()) {
+            do {
+                units.add(getUnits.getString(getUnits.getColumnIndexOrThrow("unit_name")));
+                Log.d("unit", getUnits.getString(getUnits.getColumnIndexOrThrow("unit_name")));
+            } while (getUnits.moveToNext());
+        } else {
+            Log.e("unit", "No unit found in database.");
+        }
+        getUnits.close();
 
         ArrayAdapter<String> unitAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, units);
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -89,9 +97,7 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
         FloatingActionButton close = findViewById(R.id.add_item_close_button);
         FloatingActionButton confirm = findViewById(R.id.add_item_confirm_button);
 
-        close.setOnClickListener(e -> {
-            finish();
-        });
+        close.setOnClickListener(e -> finish());
 
         confirm.setOnClickListener(e -> {
             if(name.getText().toString().isEmpty()){

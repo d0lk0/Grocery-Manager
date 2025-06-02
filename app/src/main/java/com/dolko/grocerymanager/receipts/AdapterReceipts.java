@@ -79,6 +79,7 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
         holder.itemView.setOnClickListener(view -> {
             if(Pattern.matches("[A-Z]-\\b[\\dA-F]{32}\\b", holder.receipt_id.getText())){
                 try {
+                    Log.d("receipt id", holder.receipt_id.getText().toString());
                     FetchData.getUrlContent(holder.receipt_id.getText().toString());
                     if(FetchData.detail != null){
                         Receipt fragment = new Receipt();

@@ -65,6 +65,7 @@
                 android:padding="10dp"
                 android:paddingStart="10dp"
                 android:inputType="text"
+                android:hint="Názov"
                 android:textColorHint="#b9b9b9"
                 android:textColor="@color/white"
                 card_view:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +120,7 @@
         android:layout_marginBottom="15dp"
         android:backgroundTint="#FF0000"
         android:clickable="true"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_delete" />
@@ -131,6 +133,7 @@
         android:layout_marginBottom="15dp"
         android:backgroundTint="#00FF00"
         android:clickable="true"
+        android:importantForAccessibility="no"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_send" />

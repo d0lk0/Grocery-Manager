@@ -8,6 +8,35 @@
     android:backgroundTint="#D9D9D9">
 
     <LinearLayout
+        android:id="@+id/layoutInfo"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#656565"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_info"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Podrobnosti"
+            android:textColor="@color/white"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="30dp"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/layoutEdit"
         android:orientation="horizontal"
         android:layout_width="match_parent"

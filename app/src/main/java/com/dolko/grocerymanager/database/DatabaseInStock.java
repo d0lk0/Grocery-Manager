@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseInStock extends SQLiteOpenHelper {
-    private static final String TAG = "DatabaseInStock";
     private static final String TABLE_NAME = "stored_items";
     private static final String COL1 = "name";
     private static final String COL2 = "quantity";
@@ -94,7 +93,7 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public void addData(String name, String category, int quantity) {
+    public void addDebugData(String name, String category, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO " + TABLE_NAME + " (name, quantity, unit_id, category_id) " +
                 "VALUES ('" + name + "', " + quantity + ", (SELECT unit_id FROM units WHERE unit_name = 'Ks'), (SELECT category_id FROM categories WHERE category_name = '" + category + "'));";
@@ -132,7 +131,7 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         return db.rawQuery(query, null);
     }
 
-    public Cursor getItemByID(Integer id){
+    public Cursor getItemByID(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * " + " FROM " + TABLE_NAME +
                 " WHERE id = '" + id + "'";
@@ -178,55 +177,55 @@ public class DatabaseInStock extends SQLiteOpenHelper {
         insertCategory("Trvanlivé potraviny");
         insertCategory("Nápoje");
 
-        addData("Chlieb","Pečivo", 0);
-        addData("Rohlík","Pečivo", 0);
-        addData("Bageta","Pečivo", 0);
-        addData("Kaiserka","Pečivo", 0);
-        addData("Croissant","Pečivo", 0);
-        addData("Donut","Pečivo", 0);
-        addData("Tortila","Pečivo", 0);
+        addDebugData("Chlieb","Pečivo", 0);
+        addDebugData("Rohlík","Pečivo", 0);
+        addDebugData("Bageta","Pečivo", 0);
+        addDebugData("Kaiserka","Pečivo", 0);
+        addDebugData("Croissant","Pečivo", 0);
+        addDebugData("Donut","Pečivo", 0);
+        addDebugData("Tortila","Pečivo", 0);
 
-        addData("Hydina","Mäsové výrobky", 0);
-        addData("Bravčové","Mäsové výrobky", 0);
-        addData("Hovädzie","Mäsové výrobky", 0);
-        addData("Párky","Mäsové výrobky", 0);
-        addData("Klobásy","Mäsové výrobky", 0);
-        addData("Salámy","Mäsové výrobky", 0);
-        addData("Paštety","Mäsové výrobky", 0);
-        addData("Ryby","Mäsové výrobky", 0);
+        addDebugData("Hydina","Mäsové výrobky", 0);
+        addDebugData("Bravčové","Mäsové výrobky", 0);
+        addDebugData("Hovädzie","Mäsové výrobky", 0);
+        addDebugData("Párky","Mäsové výrobky", 0);
+        addDebugData("Klobásy","Mäsové výrobky", 0);
+        addDebugData("Salámy","Mäsové výrobky", 0);
+        addDebugData("Paštety","Mäsové výrobky", 0);
+        addDebugData("Ryby","Mäsové výrobky", 0);
 
-        addData("Jablko", "Ovocie a Zelenia", 0);
-        addData("Hruška", "Ovocie a Zelenia", 0);
-        addData("Hrozno", "Ovocie a Zelenia", 0);
-        addData("Jahody", "Ovocie a Zelenia", 0);
-        addData("Melón", "Ovocie a Zelenia", 0);
-        addData("Mrkva", "Ovocie a Zelenia", 0);
-        addData("Mandarinka", "Ovocie a Zelenia", 0);
-        addData("Kapusta", "Ovocie a Zelenia", 0);
+        addDebugData("Jablko", "Ovocie a Zelenia", 0);
+        addDebugData("Hruška", "Ovocie a Zelenia", 0);
+        addDebugData("Hrozno", "Ovocie a Zelenia", 0);
+        addDebugData("Jahody", "Ovocie a Zelenia", 0);
+        addDebugData("Melón", "Ovocie a Zelenia", 0);
+        addDebugData("Mrkva", "Ovocie a Zelenia", 0);
+        addDebugData("Mandarinka", "Ovocie a Zelenia", 0);
+        addDebugData("Kapusta", "Ovocie a Zelenia", 0);
 
-        addData("Pizza", "Mrazené výrobky", 0);
-        addData("Ryby", "Mrazené výrobky", 0);
-        addData("Zmrzlina", "Mrazené výrobky", 0);
-        addData("Ľad", "Mrazené výrobky", 0);
-        addData("Zemiakové výrobky", "Mrazené výrobky", 0);
+        addDebugData("Pizza", "Mrazené výrobky", 0);
+        addDebugData("Ryby", "Mrazené výrobky", 0);
+        addDebugData("Zmrzlina", "Mrazené výrobky", 0);
+        addDebugData("Ľad", "Mrazené výrobky", 0);
+        addDebugData("Zemiakové výrobky", "Mrazené výrobky", 0);
 
-        addData("Vaječné","Cestoviny", 0);
+        addDebugData("Vaječné","Cestoviny", 0);
 
-        addData("Maslo","Mliečne výrobky", 0);
-        addData("Nátierka","Mliečne výrobky", 0);
-        addData("Syr","Mliečne výrobky", 0);
-        addData("Vajcia","Mliečne výrobky", 0);
-        addData("Jogurty","Mliečne výrobky", 0);
-        addData("Smotana","Mliečne výrobky", 0);
+        addDebugData("Maslo","Mliečne výrobky", 0);
+        addDebugData("Nátierka","Mliečne výrobky", 0);
+        addDebugData("Syr","Mliečne výrobky", 0);
+        addDebugData("Vajcia","Mliečne výrobky", 0);
+        addDebugData("Jogurty","Mliečne výrobky", 0);
+        addDebugData("Smotana","Mliečne výrobky", 0);
 
-        addData("Bazový sirup","Trvanlivé potraviny", 0);
-        addData("Kokosový koktejl", "Trvanlivé potraviny", 0);
-        addData("Mysli sypané", "Trvanlivé potraviny", 0);
+        addDebugData("Bazový sirup","Trvanlivé potraviny", 0);
+        addDebugData("Kokosový koktejl", "Trvanlivé potraviny", 0);
+        addDebugData("Mysli sypané", "Trvanlivé potraviny", 0);
 
-        addData("Kofola", "Nápoje", 0);
-        addData("Pepsi", "Nápoje", 0);
-        addData("Coca-Cola", "Nápoje", 0);
-        addData("Vinea", "Nápoje", 0);
-        addData("Fanta", "Nápoje", 0);
+        addDebugData("Kofola", "Nápoje", 0);
+        addDebugData("Pepsi", "Nápoje", 0);
+        addDebugData("Coca-Cola", "Nápoje", 0);
+        addDebugData("Vinea", "Nápoje", 0);
+        addDebugData("Fanta", "Nápoje", 0);
     }
 }

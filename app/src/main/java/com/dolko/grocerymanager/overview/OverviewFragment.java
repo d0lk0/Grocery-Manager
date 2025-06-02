@@ -58,30 +58,30 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        databaseReceipts = new DatabaseReceipts(getContext());
 
+        databaseReceipts = new DatabaseReceipts(getContext());
         Cursor data = databaseReceipts.getLimitedData(3);
-        int i = 0;
-        while(data.moveToNext()) {
+
+        for(int i=0;data.moveToNext();++i){
             Log.e("data", String.valueOf(data.getString(data.getColumnIndexOrThrow("name"))));
             if(i == 0) shopping1.setText(data.getString(data.getColumnIndexOrThrow("name")));
             else if (i == 1) shopping2.setText(data.getString(data.getColumnIndexOrThrow("name")));
             else if (i == 2) shopping3.setText(data.getString(data.getColumnIndexOrThrow("name")));
-            ++i;
         }
+
         data.close();
         databaseReceipts.close();
 
         databaseShoppingCart = new DatabaseShoppingCart(getContext());
         Cursor cart = databaseShoppingCart.getLimitedData(3);
-        i = 0;
-        while(cart.moveToNext()) {
+
+        for(int i=0;cart.moveToNext();++i){
             Log.e("cart", String.valueOf(cart.getString(cart.getColumnIndexOrThrow("product_name"))));
             if(i == 0) shop1.setText(cart.getString(cart.getColumnIndexOrThrow("product_name")));
             else if (i == 1) shop2.setText(cart.getString(cart.getColumnIndexOrThrow("product_name")));
             else if (i == 2) shop3.setText(cart.getString(cart.getColumnIndexOrThrow("product_name")));
-            ++i;
         }
+
         cart.close();
         databaseShoppingCart.close();
 
@@ -89,8 +89,8 @@ public class OverviewFragment extends Fragment {
 
         databaseInStock = new DatabaseInStock(getContext());
         Cursor stock = databaseInStock.getTimeLimited(3);
-        i = 0;
-        while(stock.moveToNext()) {
+
+        for(int i=0;stock.moveToNext();++i){
             Log.e("stock", String.valueOf(stock.getString(stock.getColumnIndexOrThrow("name"))));
             if(i == 0) {
                 expire1.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
@@ -99,14 +99,29 @@ public class OverviewFragment extends Fragment {
             else if (i == 1) {
                 expire2.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
                 expire2Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
-
             }
             else if (i == 2) {
                 expire3.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
                 expire3Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
             }
-            ++i;
         }
+
+        if(expire1.getText().toString().equals("Zatiaľ žiadne")){
+            expire1Date.setVisibility(View.GONE);
+            expire2Date.setVisibility(View.GONE);
+            expire3Date.setVisibility(View.GONE);
+        } else if (expire2.getText().toString().equals("Zatiaľ žiadne")){
+            expire2Date.setVisibility(View.GONE);
+            expire3Date.setVisibility(View.GONE);
+        } else if(expire3.getText().toString().equals("Zatiaľ žiadne")){
+            expire3Date.setVisibility(View.GONE);
+        } else {
+            expire1Date.setVisibility(View.VISIBLE);
+            expire2Date.setVisibility(View.VISIBLE);
+            expire3Date.setVisibility(View.VISIBLE);
+        }
+
+
         stock.close();
         databaseInStock.close();
 

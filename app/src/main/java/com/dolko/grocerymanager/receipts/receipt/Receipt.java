@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +20,6 @@ import com.dolko.grocerymanager.R;
 import com.dolko.grocerymanager.database.DatabaseReceipts;
 import com.dolko.grocerymanager.FetchData;
 import com.dolko.grocerymanager.receipts.ReceiptsFragment;
-
-import org.json.JSONException;
 
 public class Receipt extends Fragment {
 
@@ -41,8 +39,12 @@ public class Receipt extends Fragment {
         save = view.findViewById(R.id.button_save_receipt);
 
         save.setOnClickListener(e ->{
-            databaseReceipts.addReceipt(FetchData.detail[3], (FetchData.detail[1]), FetchData.detail[2], FetchData.detail[0]);
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceiptsFragment()).commit();
+            if(!databaseReceipts.checkExistence(FetchData.detail[3])){
+                databaseReceipts.addReceipt(FetchData.detail[3], (FetchData.detail[1]), FetchData.detail[2], FetchData.detail[0]);
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReceiptsFragment()).commit();
+            }
+            else
+                Toast.makeText(getContext(), "Tento bloček už je uložený!", Toast.LENGTH_SHORT).show();
         });
 
         Bundle args = getArguments();
@@ -81,7 +83,7 @@ public class Receipt extends Fragment {
 
         name.setText(FetchData.detail[0]);
         date.setText(FetchData.detail[1]);
-        price.setText(FetchData.detail[2]);
+        price.setText(String.format("%s €", FetchData.detail[2]));
     }
 
 

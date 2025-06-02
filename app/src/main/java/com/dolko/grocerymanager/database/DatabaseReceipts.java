@@ -55,13 +55,13 @@ public class DatabaseReceipts extends SQLiteOpenHelper {
     }
 
 
-    public Cursor checkExistence(String name, String date){
+    public boolean checkExistence(String receipt_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * " +
-                " FROM " + TABLE_NAME +
-                " WHERE "+ COL1 + " = '" + name + "' AND " + COL2 + " = '" + date + "'";
-
-        return db.rawQuery(query, null);
+        String query = "SELECT * " + " FROM " + TABLE_NAME + " WHERE "+ COL1 + " = '" + receipt_id + "' LIMIT 1;";
+        Cursor cursor =  db.rawQuery(query, null);
+        boolean bool = cursor.moveToFirst();
+        cursor.close();
+        return bool;
     }
 
     public Cursor getItemByID(String name){

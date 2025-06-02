@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -26,6 +27,7 @@
                 android:id="@+id/receipt_logo"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:importantForAccessibility="no"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
@@ -37,12 +39,13 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:textColor="@color/white"
                 card_view:layout_constraintEnd_toEndOf="@+id/button_receipt_more_info"
                 card_view:layout_constraintStart_toEndOf="@+id/receipt_logo"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/receipt_creation_date"
@@ -51,12 +54,13 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:textColor="@color/white"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="@+id/receipt_name"
-                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name" />
+                card_view:layout_constraintTop_toBottomOf="@+id/receipt_name"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/receipt_price"
@@ -64,13 +68,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
-                android:gravity="left"
+                android:gravity="start"
                 android:paddingStart="10dp"
                 android:textColor="@color/white"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toStartOf="@+id/button_receipt_more_info"
                 card_view:layout_constraintStart_toEndOf="@+id/receipt_creation_date"
-                card_view:layout_constraintTop_toTopOf="@+id/receipt_creation_date" />
+                card_view:layout_constraintTop_toTopOf="@+id/receipt_creation_date"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/receipt_id"
@@ -89,6 +94,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rectangle"
                 android:backgroundTint="#656565"
+                android:importantForAccessibility="no"
                 android:src="@drawable/ic_3_dots"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintEnd_toEndOf="parent" />
