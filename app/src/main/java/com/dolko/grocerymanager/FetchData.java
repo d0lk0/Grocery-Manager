@@ -62,6 +62,9 @@ public class FetchData  {
         if (receiptContent != null) {
             items.clear();
             try { //TODO: REFACTOR NA (String receipt_id, String time, String price, String name) -> Map<String, String> detailMap = new HashMap<>();
+
+                //detail.add
+
                 detail[0] = receiptContent.getJSONObject("receipt").getJSONObject("organization").getString("name");
                 detail[1] = receiptContent.getJSONObject("receipt").getString("createDate");
                 detail[2] = receiptContent.getJSONObject("receipt").getString("totalPrice");

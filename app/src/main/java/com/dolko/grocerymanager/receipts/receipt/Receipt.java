@@ -71,11 +71,10 @@ public class Receipt extends Fragment {
         if(data.getCount() > 0){
             data.moveToFirst();
             Log.d("data count", String.valueOf(data.getCount()));
-            if(data.getString(data.getColumnIndexOrThrow("name")).isEmpty() || data.getString(data.getColumnIndexOrThrow("add_date")).isEmpty() || data.getString(data.getColumnIndexOrThrow("price")).isEmpty())
-                databaseReceipts.updateReceipt(FetchData.detail[3],
-                        FetchData.detail[0],
-                        FetchData.detail[2],
-                        FetchData.detail[1]);
+            if(data.getString(data.getColumnIndexOrThrow("name")).isEmpty()
+                    || data.getString(data.getColumnIndexOrThrow("add_date")).isEmpty()
+                    || data.getString(data.getColumnIndexOrThrow("price")).isEmpty())
+                databaseReceipts.updateReceipt(FetchData.detail[3], FetchData.detail[1], FetchData.detail[2], FetchData.detail[0]);
         }
 
 

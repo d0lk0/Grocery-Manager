@@ -101,16 +101,16 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
 
         confirm.setOnClickListener(e -> {
             if(name.getText().toString().isEmpty()){
-                Toast.makeText(getApplicationContext(), "Meno nemôže byť prázdne", Toast.LENGTH_LONG).show();
+                notification("Meno nemôže byť prázdne");
                 return;
-            } if(!Pattern.matches("^(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[0-2])\\.(19|20)\\d{2}$", exp_date.getText())) {
-                Toast.makeText(getApplicationContext(), "Zlý formát dátumu expiracie (dd.mm.YYYY)", Toast.LENGTH_LONG).show();
+            } else if(!Pattern.matches("^(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[0-2])\\.(19|20)\\d{2}$", exp_date.getText())) {
+                notification("Zlý formát dátumu expiracie (dd.mm.YYYY)");
                 return;
-            } if (!Pattern.matches("^(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[0-2])\\.(19|20)\\d{2}$", buy_date.getText())){ //(\d{2}).(\d{2}).(\d{4}) (\d{2}):(\d{2}):(\d{2})
-                Toast.makeText(getApplicationContext(), "Zlý formát dátumu nákupu (dd.mm.YYYY hh:mm:ss)", Toast.LENGTH_LONG).show();
+            } else if (!Pattern.matches("^(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[0-2])\\.(19|20)\\d{2}$", buy_date.getText())){ //(\d{2}).(\d{2}).(\d{4}) (\d{2}):(\d{2}):(\d{2})
+                notification("Zlý formát dátumu nákupu (dd.mm.YYYY hh:mm:ss)");
                 return;
-            } if (quantity.getText().toString().isEmpty() && !Pattern.matches("(\\d)", quantity.getText())){
-                Toast.makeText(getApplicationContext(), "Zlý počet kusov", Toast.LENGTH_LONG).show();
+            } else if (quantity.getText().toString().isEmpty() && !Pattern.matches("(\\d)", quantity.getText()) && Integer.parseInt((String) quantity.getText()) > 0  ){
+                notification("Zlý počet kusov");
                 return;
             }
 
@@ -126,6 +126,10 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
 
             finishAndRemoveTask();
         });
+    }
+
+    public void notification(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
