@@ -18,7 +18,7 @@ public class ItemViewHolderShoppingcart extends RecyclerView.ViewHolder {
         super(itemView);
         name = itemView.findViewById(R.id.name);
         count = itemView.findViewById(R.id.quantity);
-        more = itemView.findViewById(R.id.button_more_info);
+        more = itemView.findViewById(R.id.button_info);
         item_h = itemView.findViewById(R.id.item_holder);
     }
 }

@@ -33,10 +33,10 @@ public class AddItemToShoppingcartFragment extends Fragment {
 
         databaseShoppingCart = new DatabaseShoppingCart(getContext());
 
-        name = view.findViewById(R.id.add_item_product_name);
-        quantity = view.findViewById(R.id.add_item_quantity);
-        FloatingActionButton close = view.findViewById(R.id.add_item_close_button);
-        FloatingActionButton confirm = view.findViewById(R.id.add_item_confirm_button);
+        name = view.findViewById(R.id.item_name);
+        quantity = view.findViewById(R.id.item_quantity);
+        FloatingActionButton close = view.findViewById(R.id.close_button);
+        FloatingActionButton confirm = view.findViewById(R.id.confirm_button);
 
         close.setOnClickListener(e -> {
             requireActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);

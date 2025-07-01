@@ -22,7 +22,7 @@ public class AdapterReceipt extends RecyclerView.Adapter<ItemViewHolderReceipt> 
     @Override
     public ItemViewHolderReceipt onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_receipt_item, parent, false);
+        View view = inflater.inflate(R.layout.layout_item_receipt_item, parent, false);
         databaseInStock = new DatabaseInStock(view.getContext());
         return new ItemViewHolderReceipt(view);
     }

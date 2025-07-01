@@ -38,7 +38,7 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
     @NonNull
     @Override
     public NestedViewHolderStock onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nested_stock , parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_stock_nested, parent , false);
         databaseInStock = new DatabaseInStock(parent.getContext());
         return new NestedViewHolderStock(view);
     }
@@ -53,7 +53,7 @@ public class NestedAdapterStock extends RecyclerView.Adapter<NestedAdapterStock.
         holder.more.setOnClickListener(view ->{
             final Dialog dialog = new Dialog(view.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.bottom_sheet_layout);
+            dialog.setContentView(R.layout.layout_popup_bottom);
 
             LinearLayout editLayout = dialog.findViewById(R.id.layoutEdit);
             LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);

@@ -23,7 +23,7 @@ public class SettingsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false );
+        View view = inflater.inflate(R.layout.layout_activity_settings, container, false );
 
         databaseShoppingCart = new DatabaseShoppingCart(getContext());
         databaseReceipts = new DatabaseReceipts(getContext());

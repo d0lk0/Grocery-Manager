@@ -33,7 +33,7 @@ public class AdapterStock extends RecyclerView.Adapter<AdapterStock.AdapterStock
     @NonNull
     @Override
     public AdapterStockHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_stock , parent , false);
+        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_stock, parent , false);
         databaseInStock = new DatabaseInStock(parent.getContext());
         return new AdapterStockHolder(view);
     }

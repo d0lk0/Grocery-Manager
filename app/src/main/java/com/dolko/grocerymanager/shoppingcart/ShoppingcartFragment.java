@@ -30,7 +30,7 @@ public class ShoppingcartFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        return inflater.inflate(R.layout.fragment_shoppingcart, container, false);
+        return inflater.inflate(R.layout.layout_activity_shoppingcart, container, false);
     }
 
     @Override

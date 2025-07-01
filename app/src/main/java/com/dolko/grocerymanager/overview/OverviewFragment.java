@@ -33,7 +33,7 @@ public class OverviewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_overview, container, false );
+        View view = inflater.inflate(R.layout.layout_activity_overview, container, false );
         shop1 = view.findViewById(R.id.shopping_cart_1);
         shop2 = view.findViewById(R.id.shopping_cart_2);
         shop3 = view.findViewById(R.id.shopping_cart_3);
@@ -90,37 +90,34 @@ public class OverviewFragment extends Fragment {
         databaseInStock = new DatabaseInStock(getContext());
         Cursor stock = databaseInStock.getTimeLimited(3);
 
+        expire1Date.setVisibility(View.GONE);
+        expire2Date.setVisibility(View.GONE);
+        expire3Date.setVisibility(View.GONE);
+
         for(int i=0;stock.moveToNext();++i){
             Log.e("stock", String.valueOf(stock.getString(stock.getColumnIndexOrThrow("name"))));
             if(i == 0) {
                 expire1.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
-                expire1Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+                if (!expire1.getText().toString().equals("Zatiaľ žiadne")) {
+                    expire1Date.setVisibility(View.VISIBLE);
+                    expire1Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+                }
             }
             else if (i == 1) {
                 expire2.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
-                expire2Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+                if (!expire2.getText().toString().equals("Zatiaľ žiadne")) {
+                    expire2Date.setVisibility(View.VISIBLE);
+                    expire2Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+                }
             }
             else if (i == 2) {
                 expire3.setText(stock.getString(stock.getColumnIndexOrThrow("name")));
-                expire3Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+                if (!expire3.getText().toString().equals("Zatiaľ žiadne")) {
+                    expire3Date.setVisibility(View.VISIBLE);
+                    expire3Date.setText(stock.getString(stock.getColumnIndexOrThrow("exp_date")));
+                }
             }
         }
-
-        if(expire1.getText().toString().equals("Zatiaľ žiadne")){
-            expire1Date.setVisibility(View.GONE);
-            expire2Date.setVisibility(View.GONE);
-            expire3Date.setVisibility(View.GONE);
-        } else if (expire2.getText().toString().equals("Zatiaľ žiadne")){
-            expire2Date.setVisibility(View.GONE);
-            expire3Date.setVisibility(View.GONE);
-        } else if(expire3.getText().toString().equals("Zatiaľ žiadne")){
-            expire3Date.setVisibility(View.GONE);
-        } else {
-            expire1Date.setVisibility(View.VISIBLE);
-            expire2Date.setVisibility(View.VISIBLE);
-            expire3Date.setVisibility(View.VISIBLE);
-        }
-
 
         stock.close();
         databaseInStock.close();

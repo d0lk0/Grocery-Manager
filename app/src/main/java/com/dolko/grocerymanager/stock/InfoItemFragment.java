@@ -27,19 +27,19 @@ public class InfoItemFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        View view = inflater.inflate(R.layout.activity_add, container, false);
+        View view = inflater.inflate(R.layout.layout_activity_add, container, false);
 
-        name = view.findViewById(R.id.add_item_product_name);
-        quantity = view.findViewById(R.id.add_item_quantity);
-        exp_date = view.findViewById(R.id.add_item_expiration_date);
-        buy_date = view.findViewById(R.id.add_item_buy_date);
+        name = view.findViewById(R.id.item_name);
+        quantity = view.findViewById(R.id.item_quantity);
+        exp_date = view.findViewById(R.id.item_expiration_date);
+        buy_date = view.findViewById(R.id.item_buy_date);
         description = view.findViewById(R.id.add_item_description);
 
-        spinnerUnit = view.findViewById(R.id.add_item_unit);
-        spinnerCategory = view.findViewById(R.id.add_item_category);
+        spinnerUnit = view.findViewById(R.id.item_unit);
+        spinnerCategory = view.findViewById(R.id.item_category);
 
-        save = view.findViewById(R.id.add_item_confirm_button);
-        close = view.findViewById(R.id.add_item_close_button);
+        save = view.findViewById(R.id.confirm_button);
+        close = view.findViewById(R.id.close_button);
 
         name.setClickable(false);
         quantity.setClickable(false);

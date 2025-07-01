@@ -40,7 +40,7 @@ public class ScanFragment extends Fragment {
         options.setCaptureActivity(CaptActivity.class);
         barLauncher.launch(options);
 
-        return inflater.inflate(R.layout.fragment_scan, container, false );
+        return inflater.inflate(R.layout.layout_activity_scan_empty, container, false );
     }
 
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result-> {

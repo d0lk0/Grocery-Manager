@@ -35,7 +35,7 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
     @Override
     public ItemViewHolderReceipts onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_receipt, parent, false);
+        View view = inflater.inflate(R.layout.layout_item_receipt, parent, false);
         databaseReceipts = new DatabaseReceipts(view.getContext());
         return new ItemViewHolderReceipts(view);
     }
@@ -59,7 +59,7 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
         holder.receipt_more_info.setOnClickListener(view ->{
             final Dialog dialog = new Dialog(view.getContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.bottom_sheet_layout);
+            dialog.setContentView(R.layout.layout_popup_bottom);
             dialog.findViewById(R.id.layoutEdit).setVisibility(View.GONE);
 
             LinearLayout deleteLayout = dialog.findViewById(R.id.layoutDelete);
@@ -81,13 +81,13 @@ public class AdapterReceipts extends RecyclerView.Adapter<ItemViewHolderReceipts
                 try {
                     Log.d("receipt id", holder.receipt_id.getText().toString());
                     FetchData.getUrlContent(holder.receipt_id.getText().toString());
-                    if(FetchData.detail != null){
+                  if(FetchData.detail != null){
                         Receipt fragment = new Receipt();
                         Bundle args = new Bundle();
                         args.putString("caller", "GONE");
                         fragment.setArguments(args);
                         ((FragmentActivity) view.getContext()).getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
+                             .replace(R.id.fragment_container, fragment).addToBackStack( null ).commit();
                     }
                 } catch (IOException | JSONException e) {
                     Log.e("Error: ", "Error scanning");

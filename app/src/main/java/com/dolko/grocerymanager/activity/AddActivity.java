@@ -32,7 +32,7 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.layout_activity_add);
 
         databaseInStock = new DatabaseInStock(getApplicationContext());
 
@@ -61,7 +61,6 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
         }
 
         List<String> units = new ArrayList<>();
-
         Cursor getUnits = databaseInStock.getAllUnits();
         if (getUnits.moveToFirst()) {
             do {
@@ -69,7 +68,7 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
                 Log.d("unit", getUnits.getString(getUnits.getColumnIndexOrThrow("unit_name")));
             } while (getUnits.moveToNext());
         } else {
-            Log.e("unit", "No unit found in database.");
+            Log.d("unit", "No unit found in database.", new Exception("No unit found in DB.") );
         }
         getUnits.close();
 
@@ -78,7 +77,6 @@ public class AddActivity extends Activity implements AdapterView.OnItemSelectedL
         spinnerUnit.setAdapter(unitAdapter);
 
         List<String> categories = new ArrayList<>();
-
         Cursor getCategories = databaseInStock.getAllCategories();
         if (getCategories.moveToFirst()) {
             do {

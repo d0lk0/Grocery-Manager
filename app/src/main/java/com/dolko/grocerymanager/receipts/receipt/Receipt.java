@@ -31,7 +31,7 @@ public class Receipt extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        View view = inflater.inflate(R.layout.fragment_receipt, container, false);
+        View view = inflater.inflate(R.layout.layout_activity_receipt, container, false);
 
         name = view.findViewById(R.id.receipt_name);
         date = view.findViewById(R.id.receipt_creation_date);

@@ -37,7 +37,7 @@ public class StockFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstance) {
-        return inflater.inflate(R.layout.fragment_stock, container, false );
+        return inflater.inflate(R.layout.layout_activity_stock, container, false );
     }
 
     @Override
@@ -57,7 +57,7 @@ public class StockFragment extends Fragment {
         b_add_category.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle("Pridanie kategórie");
-            View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.text_input_popup, (ViewGroup) getView(), false);
+            View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.layout_popup_text, (ViewGroup) getView(), false);
             final EditText input = viewInflated.findViewById(R.id.input);
             builder.setView(viewInflated);
 
